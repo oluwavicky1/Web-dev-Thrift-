@@ -1,23 +1,27 @@
 <?php
 require_once 'config.php';
+require_once 'utils/constants.php';
+require_once 'model/DbResponse.php';
 
 class DbHelper
 {
     private $db;
+    private $tableName;
 
-    function __construct() {
+    function __construct($tableName) {
         $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8';
         try {
             $this->db = new PDO($dsn, DB_USERNAME, DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            $this->tableName = $tableName;
         } catch (PDOException $e) {
-            $response["status"] = "error";
-            $response["message"] = 'Connection failed: ' . $e->getMessage();
-            $response["data"] = null;
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
+            $response[RESPONSE_MESSAGE] = 'Connection failed: ' . $e->getMessage();
+            $response[RESPONSE_DATA] = null;
             exit;
         }
     }
 
-    function select($table, $where){
+    function select($where){
         try{
             $a = array();
             $w = "";
@@ -25,27 +29,30 @@ class DbHelper
                 $w .= " and " .$key. " like :".$key;
                 $a[":".$key] = $value;
             }
-            $stmt = $this->db->prepare("select * from ".$table." where 1=1 ". $w);
+            $stmt = $this->db->prepare("select * from ".$this->tableName." where 1=1 ". $w);
             $stmt->execute($a);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if(count($rows)<=0){
-                $response["status"] = "warning";
-                $response["message"] = "No data found.";
+                $response[RESPONSE_STATUS] = DbResponse::STATUS_WARNING;
+                $response[RESPONSE_MESSAGE] = "No data found.";
             }else{
-                $response["status"] = "success";
-                $response["message"] = "Data selected from database";
+                $response[RESPONSE_STATUS] = DbResponse::STATUS_SUCCESS;
+                $response[RESPONSE_MESSAGE] = "Data selected from database";
             }
-            $response["data"] = $rows;
+            $response[RESPONSE_DATA] = $rows;
         }catch(PDOException $e){
-            $response["status"] = "error";
-            $response["message"] = 'Select Failed: ' .$e->getMessage();
-            $response["data"] = null;
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
+            $response[RESPONSE_MESSAGE] = 'Select Failed: ' .$e->getMessage();
+            $response[RESPONSE_DATA] = null;
         }
         return $response;
     }
 
-    function insert($table, $columnsArray, $requiredColumnsArray) {
-        $this->verifyRequiredParams($columnsArray, $requiredColumnsArray);
+    function insert($columnsArray, $requiredColumnsArray) {
+        $response = $this->verifyRequiredParams($columnsArray, $requiredColumnsArray);
+        if ($response != null) {
+            return $response;
+        }
 
         try{
             $a = array();
@@ -58,19 +65,19 @@ class DbHelper
             }
             $c = rtrim($c,', ');
             $v = rtrim($v,', ');
-            $stmt =  $this->db->prepare("INSERT INTO $table($c) VALUES($v)");
+            $stmt =  $this->db->prepare("INSERT INTO $this->tableName($c) VALUES($v)");
             $stmt->execute($a);
             $affected_rows = $stmt->rowCount();
-            $response["status"] = "success";
-            $response["message"] = $affected_rows." row inserted into database";
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_SUCCESS;
+            $response[RESPONSE_MESSAGE] = $affected_rows." row inserted into database";
         }catch(PDOException $e){
-            $response["status"] = "error";
-            $response["message"] = 'Insert Failed: ' .$e->getMessage();
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
+            $response[RESPONSE_MESSAGE] = 'Insert Failed: ' .$e->getMessage();
         }
         return $response;
     }
 
-    function update($table, $columnsArray, $where, $requiredColumnsArray){
+    function update($columnsArray, $where, $requiredColumnsArray){
         $this->verifyRequiredParams($columnsArray, $requiredColumnsArray);
         try{
             $a = array();
@@ -86,27 +93,27 @@ class DbHelper
             }
             $c = rtrim($c,", ");
 
-            $stmt =  $this->db->prepare("UPDATE $table SET $c WHERE 1=1 ".$w);
+            $stmt =  $this->db->prepare("UPDATE $this->tableName SET $c WHERE 1=1 ".$w);
             $stmt->execute($a);
             $affected_rows = $stmt->rowCount();
             if($affected_rows<=0){
-                $response["status"] = "warning";
-                $response["message"] = "No row updated";
+                $response[RESPONSE_STATUS] = DbResponse::STATUS_WARNING;
+                $response[RESPONSE_MESSAGE] = "No row updated";
             }else{
-                $response["status"] = "success";
-                $response["message"] = $affected_rows." row(s) updated in database";
+                $response[RESPONSE_STATUS] = DbResponse::STATUS_SUCCESS;
+                $response[RESPONSE_MESSAGE] = $affected_rows." row(s) updated in database";
             }
         }catch(PDOException $e){
-            $response["status"] = "error";
-            $response["message"] = "Update Failed: " .$e->getMessage();
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
+            $response[RESPONSE_MESSAGE] = "Update Failed: " .$e->getMessage();
         }
         return $response;
     }
 
-    function delete($table, $where){
+    function delete($where){
         if(count($where)<=0){
-            $response["status"] = "warning";
-            $response["message"] = "Delete Failed: At least one condition is required";
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_WARNING;
+            $response[RESPONSE_MESSAGE] = "Delete Failed: At least one condition is required";
         }else{
             try{
                 $a = array();
@@ -115,19 +122,19 @@ class DbHelper
                     $w .= " and " .$key. " = :".$key;
                     $a[":".$key] = $value;
                 }
-                $stmt =  $this->db->prepare("DELETE FROM $table WHERE 1=1 ".$w);
+                $stmt =  $this->db->prepare("DELETE FROM $this->tableName WHERE 1=1 ".$w);
                 $stmt->execute($a);
                 $affected_rows = $stmt->rowCount();
                 if($affected_rows<=0){
-                    $response["status"] = "warning";
-                    $response["message"] = "No row deleted";
+                    $response[RESPONSE_STATUS] = DbResponse::STATUS_WARNING;
+                    $response[RESPONSE_MESSAGE] = "No row deleted";
                 }else{
-                    $response["status"] = "success";
-                    $response["message"] = $affected_rows." row(s) deleted from database";
+                    $response[RESPONSE_STATUS] = DbResponse::STATUS_SUCCESS;
+                    $response[RESPONSE_MESSAGE] = $affected_rows." row(s) deleted from database";
                 }
             }catch(PDOException $e){
-                $response["status"] = "error";
-                $response["message"] = 'Delete Failed: ' .$e->getMessage();
+                $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
+                $response[RESPONSE_MESSAGE] = 'Delete Failed: ' .$e->getMessage();
             }
         }
         return $response;
@@ -145,10 +152,10 @@ class DbHelper
 
         if ($error) {
             $response = array();
-            $response["status"] = "error";
-            $response["message"] = 'Required field(s) ' . rtrim($errorColumns, ', ') . ' is missing or empty';
-            print_r($response);
-            exit;
+            $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
+            $response[RESPONSE_MESSAGE] = 'Required field(s) ' . rtrim($errorColumns, ', ') . ' is missing or empty';
+            return $response;
         }
+        return null;
     }
 }
