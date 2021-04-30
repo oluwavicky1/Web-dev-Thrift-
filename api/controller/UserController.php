@@ -30,4 +30,17 @@ class UserController
         }
         return success("Registration successful", $response);
     }
+
+    function login($email, $password) {
+        $regUser = $this->user->getUserByEmail($email);
+        if ($regUser[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
+            $user = $regUser[RESPONSE_DATA][0];
+            if (!password_verify($password, $user['password'])) {
+                return error("Password is invalid");
+            }
+            return success("Login successful", array('type' => $user['type']));
+        } else {
+            return error("Email does not exist");
+        }
+    }
 }

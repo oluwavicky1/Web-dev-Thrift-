@@ -42,7 +42,7 @@ class User
                 COL_TYPE => $this->type,
                 COL_SURNAME => $this->surname,
                 COL_EMAIL => $this->email,
-                COL_PASSWORD => hashPassword($this->password),
+                COL_PASSWORD => password_hash($this->password, PASSWORD_DEFAULT),
                 COL_PROFILE_PICTURE => $this->profileImageUrl
             ), REQUIRED_COLUMNS);
         } else {
