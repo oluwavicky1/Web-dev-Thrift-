@@ -6,13 +6,13 @@ function hashPassword($password) {
 }
 
 function error($message) {
-    header('HTTP/1.1 400 Bad request');
+    http_response_code(400);
     $response = array("message" => $message);
     return json_encode($response);
 }
 
 function success($message, $data) {
-    header('HTTP/1.1 200 Success');
+    http_response_code(200);
     $response = array("message" => $message, "data" => $data);
     return json_encode($response);
 }

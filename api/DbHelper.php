@@ -5,8 +5,8 @@ require_once 'model/DbResponse.php';
 
 class DbHelper
 {
-    private $db;
-    private $tableName;
+    private PDO $db;
+    public string $tableName;
 
     function __construct($tableName) {
         $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8';
@@ -17,6 +17,7 @@ class DbHelper
             $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
             $response[RESPONSE_MESSAGE] = 'Connection failed: ' . $e->getMessage();
             $response[RESPONSE_DATA] = null;
+            header('HTTP/1.1 500 Internal server error');
             exit;
         }
     }
