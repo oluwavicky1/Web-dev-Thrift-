@@ -3,24 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="css/register.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title></title>
   </head>
   <body>
-    <nav>
-      <p id="logo">Schedular</p>
-      <p>Have an account? <a href="login.html">Sign in</a></p>
-    </nav>
+  <nav>
+    <p id="logo">Schedular</p>
+    <p>Have an account? <a href="signin.html">Sign in</a></p>
+  </nav>
 
-    <main>
-      <h1>Create your account</h1>
-      <form id="register">
-        <div class="row">
-          <div class="col-6">
-            <div class="form-control">
-              <label for="Firstname">Firstname</label>
-              <input type="text" name="Firstname" value="" id="Firstname" />
-            </div>
-          </div>
+<main>
+  <h1> Create your account</h1>
+  <form class="">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-control">
+          <label for="Firstname">Firstname</label>
+          <input type="text" name="Firstname" value="" id="Firstname">
+        </div>
+      </div>
 
           <div class="col-6">
             <div class="form-control">
@@ -53,7 +54,7 @@
           <input type="password" name="Password" value="" id="Password" />
         </div>
 
-        <button class="btn btn-black" name="button" type="button" onclick="Register()">
+        <button class="btn btn-black" name="button" type="submit">
           Create account
         </button>
       </form>

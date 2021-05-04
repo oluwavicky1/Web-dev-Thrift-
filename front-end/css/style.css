@@ -1,0 +1,99 @@
+@font-face {
+  font-family: cera;
+  src: url('../font/cera/Cera Pro Black');
+}
+
+*{
+font-family: Cera Pro;
+font-style: normal;
+}
+html,body{
+  width: 100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background: #F2F2F2;
+}
+
+#logo{
+  font-family: Courgette;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+a{color: red;
+  text-decoration: none;
+}
+
+nav{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  margin:60px 50px;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row .col-6 {
+  flex-grow: 1;
+  margin-right: 13px;
+}
+
+.row .col-6:last-child {
+  margin-right: 0px;
+}
+
+.form-control, .form-control-radio {
+  margin-bottom: 30px;
+}
+
+.form-control > label {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  display: block;
+  color: #211F1F;
+  margin-bottom: 5px;
+}
+
+.form-control > input {
+  height: 40px;
+  background: #F9F9F9;
+  border: none;
+  display: block;
+  width: 100%;
+  /* border: 1px solid #FF0000; */
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 8px 20px;
+}
+.btn{
+  width:100%;
+  padding: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+}
+.btn-black{
+  background: #3E3E3E;
+  color: white;
+}
+.btn-db{
+  width:100%;
+  padding: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  color: black;
+}

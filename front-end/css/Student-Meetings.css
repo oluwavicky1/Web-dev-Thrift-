@@ -1,0 +1,38 @@
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+aside {
+  background: white;
+  flex-grow: 1;
+  padding-top: 50px;
+  padding-left: 50px;
+  text-align: left;
+}
+
+aside #logo {
+  margin-bottom: 70px;
+}
+
+aside > p {
+  width: 70%;
+  text-align: left;
+}
+
+aside > p > a {
+  display: block;
+}
+
+nav > p{
+  text-align: right;
+}
+
+main{
+  margin-left: 30px;
+  flex-grow: 8;
+}
+
+.btn {
+  text-align: left;
+}
