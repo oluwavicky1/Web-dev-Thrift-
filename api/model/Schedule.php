@@ -3,20 +3,11 @@
 require_once '../DbHelper.php';
 require_once '../utils/constants.php';
 
-
-define("COL_ID", "id");
-define("COL_SEMESTER_START", "semester_start");
-define("COL_SEMESTER_END", "semester_end");
-define("COL_STUDENT_LIMIT", "student_limit");
-define("COL_DAY", "day");
-define("COL_SUPERVISOR_ID", "supervisor_id");
-define("COL_TIME", "time");
-
 class Schedule
 {
-    private $dbHelper;
-    public $semesterStart;
-    public $semesterEnd;
+    private DbHelper $db;
+    public $semesterId;
+    public $id;
     public $day;
     public $time;
     public $studentLimit;
@@ -24,16 +15,50 @@ class Schedule
 
    function __construct($db)
    {
-       $this->dbHelper = $db;
+       $this->db = $db;
    }
 
    function createSchedule() {
-
+        return $this->db->insert(SCHEDULE_TABLE_NAME,
+            array(
+                COL_SEMESTER_ID => $this->semesterId,
+                COL_DAY => $this->day,
+                COL_TIME => $this->time,
+                COL_STUDENT_LIMIT => $this->studentLimit,
+                COL_SUPERVISOR_ID => $this->supervisorId
+            ),
+            array(COL_SEMESTER_ID, COL_DAY, COL_TIME, COL_STUDENT_LIMIT, COL_SUPERVISOR_ID)
+        );
    }
 
-   function isDateBetween($start, $end, $date) {
-       $newDate = Date(strtotime($date));
-       return $newDate >= Date(strtotime($start)) && $newDate <= Date(strtotime($end));
+   function getSchedules() {
+       return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_DATA];
+   }
+
+    function getSchedule() {
+        return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_ID => $this->id, COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_DATA];
+    }
+
+   function updateSchedule() {
+       return $this->db->update(SCHEDULE_TABLE_NAME,
+           array(
+           COL_SEMESTER_ID => $this->semesterId,
+           COL_DAY => $this->day,
+           COL_TIME => $this->time,
+           COL_STUDENT_LIMIT => $this->studentLimit),
+
+           array(COL_ID => $this->id),
+           array(COL_SEMESTER_ID, COL_DAY, COL_TIME, COL_STUDENT_LIMIT));
+   }
+
+   function deleteSchedule() {
+       return $this->db->delete(SCHEDULE_TABLE_NAME, array(COL_SUPERVISOR_ID => $this->supervisorId,
+           COL_ID => $this->id));
+   }
+
+   function isOwner() {
+       return $this->db->select(SCHEDULE_TABLE_NAME,
+               array(COL_ID => $this->id, COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS;
    }
 
 }

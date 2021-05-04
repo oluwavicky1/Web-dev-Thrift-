@@ -1,29 +1,23 @@
 <?php
 
-require_once 'DbHelper.php';
-require_once 'utils/constants.php';
-
-define('COL_ID', 'id');
-define('COL_NAME', 'name');
-define('COL_START_DATE', 'start_date');
-define('COL_END_DATE', 'end_date');
+require_once '../DbHelper.php';
+require_once '../utils/constants.php';
 
 class Semester
 {
     public int $id;
     public string $name;
-    public $startDate;
-    public $endDate;
+    public string $startDate;
+    public string $endDate;
     private DbHelper $db;
 
     function __construct($db)
     {
         $this->db = $db;
-        $this->db->tableName = 'semester';
     }
 
     function createSemester() {
-        return $this->db->insert(
+        return $this->db->insert(SEMESTER_TABLE_NAME,
             array(
                 COL_START_DATE => $this->startDate,
                 COL_END_DATE => $this->endDate,
@@ -34,23 +28,33 @@ class Semester
     }
 
     function deleteSemesterById(int $id) {
-        return $this->db->delete(array(COL_ID => $id));
+        return $this->db->delete(SEMESTER_TABLE_NAME, array(COL_ID => $id));
     }
 
     function deleteSemesterByName(string $name) {
-        return $this->db->delete(array(COL_NAME => $name));
+        return $this->db->delete(SEMESTER_TABLE_NAME, array(COL_NAME => $name));
     }
 
     function getSemesters() {
-        return $this->db->select(array())[RESPONSE_DATA];
+        return $this->transform($this->db->select(SEMESTER_TABLE_NAME, array())[RESPONSE_DATA]);
     }
 
     function getSemesterById(int $id) {
-        return $this->db->select(array(COL_ID => $id))[RESPONSE_DATA];
+        return $this->transform($this->db->select(SEMESTER_TABLE_NAME, array(COL_ID => $id))[RESPONSE_DATA]);
     }
 
     function getSemesterByName(string $name) {
-        return $this->db->select(array(COL_NAME => $name))[RESPONSE_DATA];
+        return $this->transform($this->db->select(SEMESTER_TABLE_NAME, array(COL_NAME => $name))[RESPONSE_DATA]);
+    }
+
+    function transform($content) {
+        return array_map(function ($content) {
+            return array(
+                'name'=> $content['name'],
+                'startDate' => $content['start_date'],
+                'endDate' => $content['end_date']
+            );
+        }, $content);
     }
 
 }

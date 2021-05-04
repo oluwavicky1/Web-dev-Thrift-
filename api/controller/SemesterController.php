@@ -1,7 +1,7 @@
 <?php
-require_once 'utils/helpers.php';
-require_once 'utils/constants.php';
-require_once 'model/Semester.php';
+require_once '../utils/helpers.php';
+require_once '../utils/constants.php';
+require_once '../model/Semester.php';
 
 class SemesterController
 {

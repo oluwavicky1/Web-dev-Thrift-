@@ -1,23 +1,15 @@
 <?php
 require_once '../DbHelper.php';
 require_once '../utils/constants.php';
+require_once 'UserType.php';
 
-define("TABLE_NAME", "user");
-define("COL_ID", "id");
-define("COL_FIRSTNAME", "first_name");
-define("COL_SURNAME", "surname");
-define("COL_EMAIL", "email");
-define("COL_PASSWORD", "PASSWORD");
-define("COL_PROFILE_PICTURE", "profile_picture");
-define("COL_TYPE", "type");
-define("COL_DATE_CREATED", "date_created");
 
 define("REQUIRED_COLUMNS", array(COL_FIRSTNAME, COL_SURNAME, COL_EMAIL, COL_PASSWORD, COL_TYPE));
 define("SEARCH_COLUMNS", array(COL_FIRSTNAME, COL_SURNAME, COL_EMAIL, COL_ID, COL_TYPE));
 
 class User
 {
-    private $dbHelper;
+    private DbHelper $dbHelper;
     public $id;
     public $firstName;
     public $surname;
@@ -37,7 +29,7 @@ class User
             $user = $this->filterUsers($this->email, COL_EMAIL);
         }
         if ($user[RESPONSE_STATUS] != DbResponse::STATUS_SUCCESS) {
-            return $this->dbHelper->insert(array(
+            return $this->dbHelper->insert(USER_TABLE_NAME, array(
                 COL_FIRSTNAME => $this->firstName,
                 COL_TYPE => $this->type,
                 COL_SURNAME => $this->surname,
@@ -54,7 +46,7 @@ class User
     }
 
     private function filterUsers($value, $colName): array{
-        return $this->dbHelper->select(array($colName => $value));
+        return $this->dbHelper->select(USER_TABLE_NAME, array($colName => $value));
     }
 
     function getUserByEmail($email) {
@@ -62,22 +54,33 @@ class User
     }
 
     function getUsers(): array {
-        return $this->dbHelper->select(array());
+        return $this->dbHelper->select(USER_TABLE_NAME, array());
+    }
+
+    function isSupervisor(): bool {
+//        print_r($this->getUsers());
+        return $this->dbHelper->select(USER_TABLE_NAME,
+                array(COL_ID => $this->id, COL_TYPE => UserType::supervisor))[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS;
+    }
+
+    function isStudent(): bool {
+        return $this->dbHelper->select(USER_TABLE_NAME,
+                array(COL_ID => $this->id, COL_TYPE => UserType::student))[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS;
     }
 
     function updateUserByEmail(String $email, array $values) {
-        return $this->dbHelper->update($values, array(COL_EMAIL => $email), array());
+        return $this->dbHelper->update(USER_TABLE_NAME, $values, array(COL_EMAIL => $email), array());
     }
 
     function updateUserById(int $id, array $values) {
-        return $this->dbHelper->update($values, array(COL_ID => $id), array());
+        return $this->dbHelper->update(USER_TABLE_NAME, $values, array(COL_ID => $id), array());
     }
 
     function deleteUser(User $user) {
         if (isset($user->id)) {
-            return $this->dbHelper->delete(array(COL_ID => $user->id));
+            return $this->dbHelper->delete(USER_TABLE_NAME, array(COL_ID => $user->id));
         } else {
-            return $this->dbHelper->delete(array(COL_EMAIL => $user->email));
+            return $this->dbHelper->delete(USER_TABLE_NAME, array(COL_EMAIL => $user->email));
         }
     }
 }
