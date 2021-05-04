@@ -14,7 +14,7 @@ error_reporting(E_ALL ^ E_WARNING);
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $db = new DbHelper(USER_TABLE_NAME);
+    $db = new DbHelper();
     $userController = new UserController($db);
     $data = json_decode(file_get_contents("php://input"));
     if (isset($data)) {

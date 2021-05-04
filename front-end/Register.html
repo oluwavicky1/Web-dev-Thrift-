@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/register.css">
-    <title> Register </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/register.css" />
+    <title></title>
   </head>
   <body>
+    <nav>
+      <p id="logo">Schedular</p>
+      <p>Have an account? <a href="login.html">Sign in</a></p>
+    </nav>
 
 <nav>
   <p id="logo">Schedular</p>
@@ -23,34 +27,43 @@
         </div>
       </div>
 
-      <div class="col-6">
-        <div class="form-control">
-          <label for="Lastname">Lastname</label>
-          <input type="text" name="Lastname" value="" id="Lastname">
+          <div class="col-6">
+            <div class="form-control">
+              <label for="Lastname">Lastname</label>
+              <input type="text" name="Lastname" value="" id="Lastname" />
+            </div>
           </div>
-      </div>
-    </div>
+        </div>
 
-    <div class="form-control-radio">
-      <input id="Student" type="radio" name="type" value="Student">
-      <label for="Student">Student</label>
-      <input id="Supervisor" type="radio" name="type" value="Supervisor">
-      <label for="Supervisor">Supervisor</label>
-    </div>
+        <div class="form-control-radio">
+          <input id="Type" type="radio" name="type" value="Student" />
+          <label>Student</label>
+          <input id="Type" type="radio" name="type" value="Supervisor" />
+          <label>Supervisor</label>
+        </div>
 
-    <div class="form-control">
-      <label for="Email">Email</label>
-      <input type="email" name="Email" value="" id="Email" placeholder="example@gmail.com">
-    </div>
+        <div class="form-control">
+          <label for="Email">Email</label>
+          <input
+            type="email"
+            name="Email"
+            value=""
+            id="Email"
+            placeholder="example@gmail.com"
+          />
+        </div>
 
-    <div class="form-control">
-      <label for="Password">Password</label>
-      <input type="password" name="Password" value="" id="Password">
-    </div>
+        <div class="form-control">
+          <label for="Password">Password</label>
+          <input type="password" name="Password" value="" id="Password" />
+        </div>
 
-    <button class="btn btn-black" type="submit" name="button">Create account</button>
-  </form>
-</main>
+        <button class="btn btn-black" name="button" type="submit">
+          Create account
+        </button>
+      </form>
+    </main>
 
+    <script src="script.js"></script>
   </body>
 </html>
