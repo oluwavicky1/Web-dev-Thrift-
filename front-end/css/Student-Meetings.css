@@ -27,6 +27,11 @@ aside > p > a {
 nav > p {
   width: 100%;
 }
+
+#Logout{
+position: relative;
+top: 50%;
+}
 #view{
   font-size: 18px;
   line-height: 23px;
