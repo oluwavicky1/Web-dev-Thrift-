@@ -1,93 +1,38 @@
-*{
-font-family: Cera Pro;
-font-style: normal;
-}
-html,body{
-  width: 100%;
-  height:100%;
-  margin:0;
-  padding:0;
-  overflow:hidden;
-  background: #F2F2F2;
-}
-
-nav{
-  display:flex;
-  flex-direction:row;
-  justify-content: space-between;
-  margin:60px 50px;
-  font-weight: normal;
-  font-size: 24px;
-}
-a{color: red;
-  text-decoration: none;
-}
-
-main{
-  width: 35%;
-  margin: auto;
-}
-#logo{
-  font-family: Courgette;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-}
-main>h1{
-  font-size: 2.2em;
-  font-style: normal;
-  font-weight: 500;
-  text-align: center;
-}
-
-.row {
+body {
   display: flex;
   flex-direction: row;
 }
 
-.row .col-6 {
+aside {
+  background: white;
   flex-grow: 1;
-  margin-right: 13px;
+  padding-top: 50px;
+  padding-left: 50px;
+  text-align: left;
 }
 
-.row .col-6:last-child {
-  margin-right: 0px;
+aside #logo {
+  margin-bottom: 70px;
 }
 
-.form-control, .form-control-radio {
-  margin-bottom: 30px;
+aside > p {
+  width: 70%;
+  text-align: left;
 }
 
-.form-control > label {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
+aside > p > a {
   display: block;
-  color: #211F1F;
-  margin-bottom: 5px;
 }
 
-.form-control > input {
-  height: 40px;
-  background: #F9F9F9;
-  border: none;
-  display: block;
-  width: 100%;
-  /* border: 1px solid #FF0000; */
-  box-sizing: border-box;
-  border-radius: 5px;
-  padding: 8px 20px;
+nav > p{
+  text-align: right;
 }
-.btn{
-  width:100%;
-  padding: 10px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
-  border-radius: 5px;
+
+main{
+  margin-left: 30px;
+  flex-grow: 8;
 }
-.btn-black{
-  background: #3E3E3E;
-  color: white;
+
+.btn {
+  text-align: left;
 }
