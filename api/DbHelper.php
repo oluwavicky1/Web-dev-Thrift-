@@ -5,23 +5,22 @@ require_once 'model/DbResponse.php';
 
 class DbHelper
 {
-    private $db;
-    private $tableName;
+    private PDO $db;
 
-    function __construct($tableName) {
+    function __construct() {
         $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8';
         try {
             $this->db = new PDO($dsn, DB_USERNAME, DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            $this->tableName = $tableName;
         } catch (PDOException $e) {
             $response[RESPONSE_STATUS] = DbResponse::STATUS_ERROR;
             $response[RESPONSE_MESSAGE] = 'Connection failed: ' . $e->getMessage();
             $response[RESPONSE_DATA] = null;
+            header('HTTP/1.1 500 Internal server error');
             exit;
         }
     }
 
-    function select($where){
+    function select($tableName, $where){
         try{
             $a = array();
             $w = "";
@@ -29,7 +28,7 @@ class DbHelper
                 $w .= " and " .$key. " like :".$key;
                 $a[":".$key] = $value;
             }
-            $stmt = $this->db->prepare("select * from ".$this->tableName." where 1=1 ". $w);
+            $stmt = $this->db->prepare("select * from ".$tableName." where 1=1 ". $w);
             $stmt->execute($a);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if(count($rows)<=0){
@@ -48,7 +47,7 @@ class DbHelper
         return $response;
     }
 
-    function insert($columnsArray, $requiredColumnsArray) {
+    function insert($tableName, $columnsArray, $requiredColumnsArray) {
         $response = $this->verifyRequiredParams($columnsArray, $requiredColumnsArray);
         if ($response != null) {
             return $response;
@@ -65,7 +64,7 @@ class DbHelper
             }
             $c = rtrim($c,', ');
             $v = rtrim($v,', ');
-            $stmt =  $this->db->prepare("INSERT INTO $this->tableName($c) VALUES($v)");
+            $stmt =  $this->db->prepare("INSERT INTO $tableName($c) VALUES($v)");
             $stmt->execute($a);
             $affected_rows = $stmt->rowCount();
             $response[RESPONSE_STATUS] = DbResponse::STATUS_SUCCESS;
@@ -77,7 +76,7 @@ class DbHelper
         return $response;
     }
 
-    function update($columnsArray, $where, $requiredColumnsArray){
+    function update($tableName, $columnsArray, $where, $requiredColumnsArray){
         $this->verifyRequiredParams($columnsArray, $requiredColumnsArray);
         try{
             $a = array();
@@ -93,7 +92,7 @@ class DbHelper
             }
             $c = rtrim($c,", ");
 
-            $stmt =  $this->db->prepare("UPDATE $this->tableName SET $c WHERE 1=1 ".$w);
+            $stmt =  $this->db->prepare("UPDATE $tableName SET $c WHERE 1=1 ".$w);
             $stmt->execute($a);
             $affected_rows = $stmt->rowCount();
             if($affected_rows<=0){
@@ -110,7 +109,7 @@ class DbHelper
         return $response;
     }
 
-    function delete($where){
+    function delete($tableName, $where){
         if(count($where)<=0){
             $response[RESPONSE_STATUS] = DbResponse::STATUS_WARNING;
             $response[RESPONSE_MESSAGE] = "Delete Failed: At least one condition is required";
@@ -122,7 +121,7 @@ class DbHelper
                     $w .= " and " .$key. " = :".$key;
                     $a[":".$key] = $value;
                 }
-                $stmt =  $this->db->prepare("DELETE FROM $this->tableName WHERE 1=1 ".$w);
+                $stmt =  $this->db->prepare("DELETE FROM $tableName WHERE 1=1 ".$w);
                 $stmt->execute($a);
                 $affected_rows = $stmt->rowCount();
                 if($affected_rows<=0){
