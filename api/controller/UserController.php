@@ -38,7 +38,7 @@ class UserController
             if (!password_verify($password, $user['password'])) {
                 return error("Password is invalid");
             }
-            return success("Login successful", array('type' => $user['type']));
+            return success("Login successful", User::transform($user));
         } else {
             return error("Email does not exist");
         }
