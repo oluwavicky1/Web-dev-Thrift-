@@ -25,14 +25,15 @@ async function Register() {
   xhr.send(data);
 
   xhr.onload = function () {
-    // if (xhr.status != 200) {
-    // HTTP error?
-    // handle error
-    //   alert( 'Error: ' + xhr.status);
-    console.log(xhr.response);
-    return;
-    // }
+    let resp = JSON.parse(xhr.response);
+    if (xhr.status == 200) {
+      alert(resp.message);
+      window.location.replace("http://127.0.0.1:5500/front-end/signin.html");
+    } else {
+      // handle error
+      // get the response from xhr.response
 
-    // get the response from xhr.response
+      alert("Error: " + resp.message);
+    }
   };
 }
