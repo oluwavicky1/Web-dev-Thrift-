@@ -1,11 +1,17 @@
 @font-face {
-  font-family: cera;
-  src: url('../font/cera/Cera Pro Black');
+  font-family: Cera Pro;
+  src: url('../font/cera/Cera Pro Medium.otf');
+}
+
+@font-face {
+  font-family: Cera Pro Bold;
+  src: url('../font/cera/Cera Pro Bold.otf');
+  font-weight: bold;
 }
 
 *{
-font-family: Cera Pro;
-font-style: normal;
+  font-family: Cera Pro, serif;
+  font-style: normal;
 }
 html,body{
   width: 100%;

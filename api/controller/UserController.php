@@ -38,9 +38,19 @@ class UserController
             if (!password_verify($password, $user['password'])) {
                 return error("Password is invalid");
             }
-            return success("Login successful", User::transform($user));
+            return success("Login successful", $this->transform($user));
         } else {
             return error("Email does not exist");
         }
+    }
+
+    function transform($content) {
+        return array(
+            'id' => $content['id'],
+            'firstName'=> $content['first_name'],
+            'surname' => $content['surname'],
+            'email' => $content['email'],
+            'type' => $content['type']
+        );
     }
 }
