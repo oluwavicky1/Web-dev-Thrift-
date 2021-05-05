@@ -80,8 +80,11 @@ nav{
   border-radius: 5px;
   padding: 8px 20px;
 }
-.btn{
+#fullbuttonwidth{
   width:100%;
+}
+.btn{
+  /* width:100%; */
   padding: 10px;
   font-style: normal;
   font-weight: 500;
@@ -91,6 +94,12 @@ nav{
 }
 .btn-black{
   background: #3E3E3E;
+  color: white;
+}
+
+.btn-red{
+  background: #E83F3F;
+  border: none;
   color: white;
 }
 
