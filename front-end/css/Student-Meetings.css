@@ -28,32 +28,42 @@ nav > p {
   width: 100%;
 }
 
-#Logout{
-position: relative;
-top: 50%;
+#Logout {
+  position: relative;
+  top: 50%;
 }
-#view{
+
+#view {
   font-size: 18px;
   line-height: 23px;
-
   color: #707070;
 }
-table{
+
+table {
+    width: 100%;
     margin-right: 30px;
 }
-th{
-  text-align: left;
+
+th {
+    text-align: left;
+    color: #A9A9A9;
 }
+
 th, td {
   padding: 44px 44px 44px 0;
 }
-
+#status-cancelled{
+  color: #FC4040;
+}
+#status-success{
+  color: #00C113
+}
 nav {
   text-align: right;
   margin-bottom: 30px;
 }
 
-main{
+main {
   margin-left: 30px;
 
   flex-grow: 8;
