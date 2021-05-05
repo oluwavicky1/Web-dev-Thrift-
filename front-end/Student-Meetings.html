@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/Student-Meetings.css">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/Student-Meetings.css" />
     <title>Student meetings</title>
   </head>
 
   <body>
     <aside>
       <p id="logo">Schedular</p>
-      <p><a href="student-meetings.html" id="fullbuttonwidth" class="btn btn-black text-left">Meeting</a></p>
-      <p><a href="student-new-meetings.html" id="fullbuttonwidth" class="btn btn-db text-left">New meeting</a></p>
-      <p><a href="student-history.html" id="fullbuttonwidth" class="btn btn-db text-left">History</a></p>
+      <p>
+        <a
+          href="student-meetings.html"
+          id="fullbuttonwidth"
+          class="btn btn-black text-left"
+          >Meeting</a
+        >
+      </p>
+      <p>
+        <a
+          href="student-new-meetings.html"
+          id="fullbuttonwidth"
+          class="btn btn-db text-left"
+          >New meeting</a
+        >
+      </p>
+      <p>
+        <a
+          href="student-history.html"
+          id="fullbuttonwidth"
+          class="btn btn-db text-left"
+          >History</a
+        >
+      </p>
 
-      <p id="Logout"><button id="fullbuttonwidth" class="btn btn-black" type="submit" name="button"> Log Out</button></p>
+      <p id="Logout">
+        <button
+          id="fullbuttonwidth"
+          class="btn btn-black"
+          type="submit"
+          name="button"
+        >
+          Log Out
+        </button>
+      </p>
     </aside>
 
     <main>
@@ -31,14 +61,14 @@
             <label for="Filter">Filter semester</label>
             <select id="semesterSelector">
               <option value="null">--Select semester--</option>
-              <option> 1st semester(2019/2010) </option>
-              <option> 2nd semester(2019/2010) </option>
+              <option>1st semester(2019/2010)</option>
+              <option>2nd semester(2019/2010)</option>
             </select>
           </div>
         </div>
       </div>
 
-      <table style="width: 100%;">
+      <table style="width: 100%">
         <tr>
           <th>Meeting ID</th>
           <th>Supervisor</th>
@@ -52,7 +82,11 @@
           <td>12:00 pm - 3:00 pm</td>
           <td>Mon</td>
           <td><a href="">View messages</a></td>
-          <td><button class="btn btn-black" type="submit" name="button"> Cancel meeting</button></td>
+          <td>
+            <button class="btn btn-black" type="submit" name="button">
+              Cancel meeting
+            </button>
+          </td>
         </tr>
         <tr>
           <td>PROJECT TOPIC</td>
@@ -60,7 +94,11 @@
           <td>12:00 pm - 3:00 pm</td>
           <td>Mon</td>
           <td><a href="">View messages</a></td>
-          <td><button class="btn btn-black" type="submit" name="button"> Cancel meeting</button></td>
+          <td>
+            <button class="btn btn-black" type="submit" name="button">
+              Cancel meeting
+            </button>
+          </td>
         </tr>
         <tr>
           <td>PROJECT TOPIC</td>
@@ -68,11 +106,18 @@
           <td>12:00 pm - 3:00 pm</td>
           <td>Mon</td>
           <td><a href="">View messages</a></td>
-          <td><button class="btn btn-black" type="submit" name="button"> Cancel meeting</button></td>
+          <td>
+            <button class="btn btn-black" type="submit" name="button">
+              Cancel meeting
+            </button>
+          </td>
         </tr>
-
-
       </table>
     </main>
+
+    <script src="script.js"></script>
+    <script>
+      get_seemesters();
+    </script>
   </body>
 </html>

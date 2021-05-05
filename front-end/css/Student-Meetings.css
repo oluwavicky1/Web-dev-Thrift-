@@ -30,7 +30,7 @@ nav > p {
 
 #Logout {
   position: relative;
-  top: 50%;
+  top: 38%;
 }
 
 #num_of_students {
@@ -47,32 +47,33 @@ label {
   font-size: 18px !important;
   font-weight: 500;
   line-height: 23px;
-  color: #8A8A8A !important;
+  color: #8a8a8a !important;
 }
 
 table {
-    width: 100%;
-    margin-right: 30px;
+  width: 100%;
+  margin-right: 30px;
 }
 
 th {
-    text-align: left;
-    color: #A9A9A9;
+  text-align: left;
+  color: #a9a9a9;
 }
 
-th, td {
+th,
+td {
   padding: 44px 44px 44px 0;
 }
 
-#space{
-    margin-right: 20px;
+#space {
+  margin-right: 20px;
 }
 
-#status-cancelled{
-  color: #FC4040;
+#status-cancelled {
+  color: #fc4040;
 }
-#status-success{
-  color: #00C113
+#status-success {
+  color: #00c113;
 }
 nav {
   text-align: right;
@@ -86,5 +87,5 @@ main {
 }
 
 #timeStart::after {
-  content: '-';
+  content: "-";
 }
