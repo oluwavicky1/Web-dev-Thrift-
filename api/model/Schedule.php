@@ -42,6 +42,10 @@ class Schedule
        return $this->db->select(SCHEDULE_TABLE_NAME, array())[RESPONSE_DATA];
    }
 
+   function getSchedulesBySemester() {
+       return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_SEMESTER_ID => $this->semesterId))[RESPONSE_DATA];
+   }
+
    function getSchedulesBySupervisor() {
        return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_DATA];
    }

@@ -18,7 +18,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         if (isset($_GET['id'])) {
             echo $controller->getSchedule($_GET['id']);
         } else if (isset($_GET['supervisorId'])) {
-            echo $controller->getScheduleBySupervisor($_GET['supervisorId']);
+            echo $controller->getScheduleBySupervisor($_GET['supervisorId'], $_GET['semesterId']);
+        } else if (isset($_GET['semesterId'])) {
+            echo $controller->getSchedulesBySemester($_GET['semesterId']);
         } else {
             echo $controller->getSchedules();
         }
