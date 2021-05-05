@@ -73,11 +73,23 @@ async function SignIn() {
 }
 
 //get seemesters
-async function get_seemesters() {
+async function get_semesters() {
+  var sel = document.getElementById('semesterSelector');
   xhr.open("GET", `http://localhost:80/Web Project/api/semester/semester.php`);
-  xhr.send(data);
+  xhr.send();
 
   xhr.onload = function () {
     let resp = JSON.parse(xhr.response);
+    console.log(resp.data);
+    for (let i = 0; i < resp.data.length; i++) {
+      const semester = resp.data[i];
+      const opt = document.createElement('option');
+
+      opt.appendChild( document.createTextNode(semester.name) );
+
+      opt.value = semester.id;
+
+      sel.appendChild(opt);
+    }
   };
 }
