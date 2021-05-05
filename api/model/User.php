@@ -83,4 +83,16 @@ class User
             return $this->dbHelper->delete(USER_TABLE_NAME, array(COL_EMAIL => $user->email));
         }
     }
+
+   static function transform($content) {
+        return array_map(function ($content) {
+            return array(
+                'id' => $content[COL_ID],
+                'firstName'=> $content[COL_FIRSTNAME],
+                'surname' => $content[COL_SURNAME],
+                'email' => $content[COL_EMAIL],
+                'type' => $content[COL_TYPE]
+            );
+        }, $content);
+    }
 }

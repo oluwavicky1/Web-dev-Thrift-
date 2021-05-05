@@ -1,11 +1,17 @@
 @font-face {
-  font-family: cera;
-  src: url('../font/cera/Cera Pro Black');
+  font-family: Cera Pro;
+  src: url('../font/cera/Cera Pro Medium.otf');
+}
+
+@font-face {
+  font-family: Cera Pro Bold;
+  src: url('../font/cera/Cera Pro Bold.otf');
+  font-weight: bold;
 }
 
 *{
-font-family: Cera Pro;
-font-style: normal;
+  font-family: Cera Pro, serif;
+  font-style: normal;
 }
 html,body{
   width: 100%;
@@ -87,13 +93,24 @@ nav{
   background: #3E3E3E;
   color: white;
 }
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
 .btn-db{
   width:100%;
   padding: 10px;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
-  text-align: center;
   border-radius: 5px;
   color: black;
 }
