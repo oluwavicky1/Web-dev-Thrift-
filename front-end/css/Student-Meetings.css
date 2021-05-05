@@ -3,7 +3,7 @@ body {
   flex-direction: row;
 }
 
-aside {
+body > aside {
   background: white;
   flex-grow: 1;
   padding-top: 50px;
@@ -24,15 +24,68 @@ aside > p > a {
   display: block;
 }
 
-nav > p{
-  text-align: right;
+nav > p {
+  width: 100%;
 }
 
-main{
+#Logout {
+  position: relative;
+  top: 38%;
+}
+
+#num_of_students {
+  width: 70px;
+}
+
+.view {
+  font-size: 18px;
+  line-height: 23px;
+  color: #707070;
+}
+
+label {
+  font-size: 18px !important;
+  font-weight: 500;
+  line-height: 23px;
+  color: #8a8a8a !important;
+}
+
+table {
+  width: 100%;
+  margin-right: 30px;
+}
+
+th {
+  text-align: left;
+  color: #a9a9a9;
+}
+
+th,
+td {
+  padding: 44px 44px 44px 0;
+}
+
+#space {
+  margin-right: 20px;
+}
+
+#status-cancelled {
+  color: #fc4040;
+}
+#status-success {
+  color: #00c113;
+}
+nav {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+main {
   margin-left: 30px;
+
   flex-grow: 8;
 }
 
-.btn {
-  text-align: left;
+#timeStart::after {
+  content: "-";
 }

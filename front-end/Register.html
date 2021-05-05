@@ -3,38 +3,56 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="css/register.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <title></title>
   </head>
   <body>
-  <nav>
-    <p id="logo">Schedular</p>
-    <p>Have an account? <a href="signin.html">Sign in</a></p>
-  </nav>
+    <nav>
+      <p id="logo">Schedular</p>
+      <p>Have an account? <a href="signin.html">Sign in</a></p>
+    </nav>
 
-<main>
-  <h1> Create your account</h1>
-  <form class="">
-    <div class="row">
-      <div class="col-6">
-        <div class="form-control">
-          <label for="Firstname">Firstname</label>
-          <input type="text" name="Firstname" value="" id="Firstname">
-        </div>
-      </div>
+    <main>
+      <h1>Create your account</h1>
+      <form class="">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-control">
+              <label for="Firstname">Firstname</label>
+              <input type="text" name="Firstname" value="" id="Firstname" />
+            </div>
+          </div>
 
           <div class="col-6">
             <div class="form-control">
               <label for="Lastname">Lastname</label>
-              <input type="text" name="Lastname" value="" id="Lastname" />
+              <input
+                type="text"
+                name="Lastname"
+                value=""
+                id="Lastname"
+                required
+              />
             </div>
           </div>
         </div>
 
         <div class="form-control-radio">
-          <input id="Type" type="radio" name="type" value="Student" />
+          <input
+            id="Student"
+            type="radio"
+            name="type"
+            value="Student"
+            required
+          />
           <label>Student</label>
-          <input id="Type" type="radio" name="type" value="Supervisor" />
+          <input
+            id="Supervisor"
+            type="radio"
+            name="type"
+            value="Supervisor"
+            required
+          />
           <label>Supervisor</label>
         </div>
 
@@ -46,15 +64,22 @@
             value=""
             id="Email"
             placeholder="example@gmail.com"
+            required
           />
         </div>
 
         <div class="form-control">
           <label for="Password">Password</label>
-          <input type="password" name="Password" value="" id="Password" />
+          <input
+            type="password"
+            name="Password"
+            value=""
+            id="Password"
+            required
+          />
         </div>
 
-        <button class="btn btn-black" name="button" type="submit">
+        <button id="fullbuttonwidth" class="btn btn-black" name="button" type="submit">
           Create account
         </button>
       </form>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-      <link rel="stylesheet" type="text/css" href="css/register.css">
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title> Sign In</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/register.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Sign In</title>
   </head>
 
   <body>
@@ -14,26 +14,30 @@
     </nav>
 
     <main>
-      <h1>
-        Sign into your account
-      </h1
+      <h1>Sign into your account</h1>
       <form class="">
+        <div class="form-control">
+          <label for="Email">Email</label>
+          <input type="email" name="Email" value="" id="Email" />
+        </div>
 
-          <div class="form-control">
-            <label for="Email">Email</label>
-            <input type="email" name="Email" value="" id="Email">
-          </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" name="password" value="" id="Password" />
+        </div>
 
-
-          <div class="form-control">
-            <label for="password">Password</label>
-            <input type="password" name="password" value="" id="Password">
-            </div>
-
-          <button class="btn btn-black" type="submit" name="button"> login</button>
-
+        <button
+          id="fullbuttonwidth"
+          class="btn btn-black"
+          type="button"
+          name="button"
+          onclick="SignIn()"
+        >
+          login
+        </button>
       </form>
-
     </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
