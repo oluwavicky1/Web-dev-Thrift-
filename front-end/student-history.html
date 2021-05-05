@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/Student-Meetings.css">
-    <title></title>
+    <title>Student history</title>
   </head>
 
   <body>
@@ -22,8 +22,22 @@
         <p>Jide Plumptre</p>
       </nav>
 
-      <h1>Good morning, Jide</h1>
-      <p id="view">View your previous meetings</p>
+      <div class="row">
+        <div class="col-6">
+          <h1>Good morning, Mr. Azeez</h1>
+          <p id="view">View your meetings</p>
+        </div>
+        <div class="col-6">
+          <div class="FilterSemester">
+            <label for="Filter">Filter semester</label>
+            <select id="semesterSelector">
+              <option value="null">--Select semester--</option>
+              <option> 1st semester(2019/2010) </option>
+              <option> 2nd semester(2019/2010) </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       <table style="width: 100%;">
         <tr>

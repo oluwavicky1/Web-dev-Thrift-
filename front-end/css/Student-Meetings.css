@@ -3,7 +3,7 @@ body {
   flex-direction: row;
 }
 
-aside {
+body > aside {
   background: white;
   flex-grow: 1;
   padding-top: 50px;
@@ -33,17 +33,21 @@ nav > p {
   top: 50%;
 }
 
-#view {
+#num_of_students {
+  width: 70px;
+}
+
+.view {
   font-size: 18px;
   line-height: 23px;
   color: #707070;
 }
 
-#view2 {
-  font-size: 18px;
+label {
+  font-size: 18px !important;
   font-weight: 500;
   line-height: 23px;
-  color: #8A8A8A;
+  color: #8A8A8A !important;
 }
 
 table {
@@ -74,4 +78,8 @@ main {
   margin-left: 30px;
 
   flex-grow: 8;
+}
+
+#timeStart::after {
+  content: '-';
 }
