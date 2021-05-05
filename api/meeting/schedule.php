@@ -15,12 +15,12 @@ $data = json_decode(file_get_contents("php://input"));
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case 'GET':
-        $id = $_GET['id'];
-        $supervisorId = $_GET['supervisorId'];
-        if (isset($id)) {
-            echo $controller->getSchedule($id, $supervisorId);
+        if (isset($_GET['id'])) {
+            echo $controller->getSchedule($_GET['id']);
+        } else if (isset($_GET['supervisorId'])) {
+            echo $controller->getScheduleBySupervisor($_GET['supervisorId']);
         } else {
-            echo $controller->getSchedules($supervisorId);
+            echo $controller->getSchedules();
         }
         break;
     case 'POST':

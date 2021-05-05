@@ -17,12 +17,10 @@ $data = json_decode(file_get_contents("php://input"));
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case "GET":
-        $id = $_GET['id'];
-        $name = $_GET['name'];
-        if (isset($id)) {
-            echo $semesterController->getSemesterById($id);
-        } elseif (isset($name)) {
-            echo $semesterController->getSemesterByName($name);
+        if (isset($_GET['id'])) {
+            echo $semesterController->getSemesterById($_GET['id']);
+        } elseif (isset($_GET['name'])) {
+            echo $semesterController->getSemesterByName($_GET['name']);
         } else {
             echo $semesterController->getSemesters();
         }
@@ -35,9 +33,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         }
         break;
     case "DELETE":
-        $id = $_GET['id'];
-        if (isset($id)) {
-            echo $semesterController->deleteSemester($id);
+        if (isset($_GET['id'])) {
+            echo $semesterController->deleteSemester($_GET['id']);
         } else {
             echo error("No id provided");
         }
