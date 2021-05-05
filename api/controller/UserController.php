@@ -20,7 +20,7 @@ class UserController
         $this->user->email = $user->email;
         $this->user->type = strtoupper($user->type);
         $this->user->password = $user->password;
-        $this->user->profileImageUrl = $user->profileImageUrl;
+//        $this->user->profileImageUrl = $user->profileImageUrl;
         if ($this->user->type != UserType::student && $this->user->type != UserType::supervisor) {
             return error("Invalid user type ". $user->type);
         }

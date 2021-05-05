@@ -33,17 +33,29 @@ class ScheduleController
         return unauthorized("User id ". $schedule->supervisorId . " is not a supervisor");
     }
 
-    function getScheduleBySupervisor($supervisorId) {
+    function getScheduleBySupervisor($supervisorId, $semesterId) {
         $this->user->id = $supervisorId;
         if ($this->user->isSupervisor()) {
             $this->schedule->supervisorId = $supervisorId;
-            return success("Schedules requested", $this->schedule->getSchedulesBySupervisor());
+            $resp = $this->schedule->getSchedulesBySupervisor();
+            if (isset($semesterId)) {
+                $this->schedule->semesterId = $semesterId;
+                $resp = array_filter($resp, function($schedule) {
+                    return $schedule[COL_SEMESTER_ID] == $this->schedule->semesterId;
+                });
+            }
+            return success("Schedules requested", $resp);
         }
         return unauthorized("User id ". $supervisorId . " is not a supervisor");
     }
 
     function getSchedules() {
         return success("Schedules requested", $this->schedule->getSchedules());
+    }
+
+    function getSchedulesBySemester($semesterId) {
+        $this->schedule->semesterId = $semesterId;
+        return success("Schedules requested", $this->schedule->getSchedulesBySemester());
     }
 
     function getSchedule($id) {
