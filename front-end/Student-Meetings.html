@@ -58,8 +58,13 @@
         </div>
         <div class="col-6">
           <div class="FilterSemester">
-            <label for="semesterSelector">Filter semester</label>
-            <select id="semesterSelector"></select>
+            <label for="Filter">Filter semester</label>
+            <select id="semesterSelector">
+              <!-- <option value="null">--Select semester--</option> -->
+              <script>
+                get_seemesters();
+              </script>
+            </select>
           </div>
         </div>
       </div>
@@ -111,9 +116,6 @@
       </table>
     </main>
 
-    <script src="script.js"></script>
-    <script>
-      get_semesters();
-    </script>
+    <script src="./script/script.js"></script>
   </body>
 </html>

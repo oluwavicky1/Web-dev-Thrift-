@@ -19,6 +19,7 @@ async function Register() {
     email: document.getElementById("Email").value,
     password: document.getElementById("Password").value,
   });
+  console.log(data);
 
   xhr.open("POST", `http://localhost:80/Web Project/api/user/register.php`);
   xhr.send(data);
@@ -31,7 +32,7 @@ async function Register() {
     } else {
       // handle error
       // get the response from xhr.response
-
+      console.log(resp.message);
       alert("Error: " + resp.message);
     }
   };
@@ -74,7 +75,7 @@ async function SignIn() {
 
 //get seemesters
 async function get_semesters() {
-  var sel = document.getElementById('semesterSelector');
+  var sel = document.getElementById("semesterSelector");
   xhr.open("GET", `http://localhost:80/Web Project/api/semester/semester.php`);
   xhr.send();
 
@@ -83,9 +84,9 @@ async function get_semesters() {
     console.log(resp.data);
     for (let i = 0; i < resp.data.length; i++) {
       const semester = resp.data[i];
-      const opt = document.createElement('option');
+      const opt = document.createElement("option");
 
-      opt.appendChild( document.createTextNode(semester.name) );
+      opt.appendChild(document.createTextNode(semester.name));
 
       opt.value = semester.id;
 
@@ -93,3 +94,6 @@ async function get_semesters() {
     }
   };
 }
+
+//generate meeting table for student
+async function get_students_meetings() {}
