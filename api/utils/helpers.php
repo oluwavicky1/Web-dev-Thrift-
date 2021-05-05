@@ -1,10 +1,5 @@
 <?php
 
-function hashPassword($password) {
-    $salt = "PSAMSGROUP20";
-    return md5($password.$salt);
-}
-
 function error($message) {
     http_response_code(400);
     $response = array("message" => $message);

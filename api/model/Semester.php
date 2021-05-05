@@ -7,8 +7,6 @@ class Semester
 {
     public int $id;
     public string $name;
-    public string $startDate;
-    public string $endDate;
     private DbHelper $db;
 
     function __construct($db)
@@ -19,11 +17,9 @@ class Semester
     function createSemester() {
         return $this->db->insert(SEMESTER_TABLE_NAME,
             array(
-                COL_START_DATE => $this->startDate,
-                COL_END_DATE => $this->endDate,
                 COL_NAME => $this->name
             ),
-            array(COL_END_DATE, COL_START_DATE, COL_NAME)
+            array(COL_NAME)
         );
     }
 
@@ -50,9 +46,7 @@ class Semester
     function transform($content) {
         return array_map(function ($content) {
             return array(
-                'name'=> $content['name'],
-                'startDate' => $content['start_date'],
-                'endDate' => $content['end_date']
+                'name'=> $content['name']
             );
         }, $content);
     }
