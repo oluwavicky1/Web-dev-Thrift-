@@ -79,7 +79,5 @@ async function get_seemesters() {
 
   xhr.onload = function () {
     let resp = JSON.parse(xhr.response);
-
-    return resp.data;
   };
 }
