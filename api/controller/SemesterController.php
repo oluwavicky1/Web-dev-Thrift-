@@ -13,8 +13,6 @@ class SemesterController
 
     function createSemester($semester) {
         $this->semester->name = $semester->name;
-        $this->semester->startDate = $semester->startDate;
-        $this->semester->endDate = $semester->endDate;
         $response = $this->semester->createSemester();
         if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
             return success("Semester created successfully", $response[RESPONSE_DATA]);

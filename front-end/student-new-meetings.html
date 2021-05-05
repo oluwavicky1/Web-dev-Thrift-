@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/Student-Meetings.css">
-    <title></title>
+    <title>Student new metings</title>
   </head>
 
   <body>
     <aside>
       <p id="logo">Schedular</p>
       <p><a href="student-meetings.html" id="fullbuttonwidth" class="btn btn-db text-left">Meeting</a></p>
-      <p><a href="student-new-meetings.html" id="fullbuttonwidth" class="btn btn-db text-left">New meeting</a></p>
-      <p><a href="student-history.html" id="fullbuttonwidth" class="btn btn-black text-left">History</a></p>
+      <p><a href="student-new-meetings.html" id="fullbuttonwidth" class="btn btn-black text-left">New meeting</a></p>
+      <p><a href="student-history.html" id="fullbuttonwidth" class="btn btn-db text-left">History</a></p>
 
       <p id="Logout"><button id="fullbuttonwidth" class="btn btn-black" type="submit" name="button"> Log Out</button></p>
     </aside>
@@ -22,15 +22,29 @@
         <p>Jide Plumptre</p>
       </nav>
 
-      <h1>Good morning, Jide</h1>
-      <p id="view">Set your meetings</p>
+      <div class="row">
+        <div class="col-6">
+          <h1>Good morning, Jide</h1>
+          <p id="view">Set new meetings</p>
+        </div>
+        <div class="col-6">
+          <div class="FilterSemester">
+            <label for="Filter">Filter semester</label>
+            <select id="semesterSelector">
+              <option value="null">--Select semester--</option>
+              <option> 1st semester(2019/2010) </option>
+              <option> 2nd semester(2019/2010) </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       <table>
         <tr>
           <th>Meeting ID</th>
           <th>Supervisor</th>
           <th>Time span</th>
-          <th>Days</th>
+          <th>Day</th>
         </tr>
 
         <tr>

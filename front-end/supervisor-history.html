@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/Student-Meetings.css">
-    <title></title>
+    <title>Supervisor history</title>
   </head>
 
   <body>
@@ -22,15 +22,29 @@
         <p>Azeez A.B</p>
       </nav>
 
-      <h1>Good morning, Mr. Azeez</h1>
-      <p id="view">View your previous meetings</p>
+      <div class="row">
+        <div class="col-6">
+          <h1>Good morning, Mr. Azeez</h1>
+          <p id="view">View your meetings</p>
+        </div>
+        <div class="col-6">
+          <div class="FilterSemester">
+            <label for="Filter">Filter semester</label>
+            <select id="semesterSelector">
+              <option value="null">--Select semester--</option>
+              <option> 1st semester(2019/2010) </option>
+              <option> 2nd semester(2019/2010) </option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       <table style="width: 100%;">
         <tr>
           <th>Meeting ID</th>
           <th>Reg. Students</th>
           <th>Time span</th>
-          <th>Days</th>
+          <th>Day</th>
           <th>Status</th>
         </tr>
 
@@ -40,14 +54,16 @@
           <td>12:00 pm - 3:00 pm</td>
           <td>Mon</td>
           <td id="status-cancelled"> Cancelled</td>
+          <td><a href="">Attendance</a></td>
           <td><a href="">View messages</a></td>
         </tr>
         <tr>
           <td>PROJECT TOPIC</td>
           <td>2</td>
           <td>12:00 pm - 3:00 pm</td>
-          <td>Mon, Tues</td>
+          <td>Mon</td>
           <td id="status-success"> Success</td>
+          <td><a href="">Attendance</a></td>
           <td><a href="">View messages</a></td>
         </tr>
         <tr>
@@ -56,6 +72,7 @@
           <td>12:00 pm - 3:00 pm</td>
           <td>Mon</td>
           <td id="status-success"> Success</td>
+          <td><a href="">Attendance</a></td>
           <td><a href="">View messages</a></td>
         </tr>
 
