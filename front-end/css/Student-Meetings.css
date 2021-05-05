@@ -63,6 +63,11 @@ th {
 th, td {
   padding: 44px 44px 44px 0;
 }
+
+#space{
+    margin-right: 20px;
+}
+
 #status-cancelled{
   color: #FC4040;
 }
