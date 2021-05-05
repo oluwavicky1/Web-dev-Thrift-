@@ -46,6 +46,7 @@ class Semester
     function transform($content) {
         return array_map(function ($content) {
             return array(
+                'id' => $content['id'],
                 'name'=> $content['name']
             );
         }, $content);
