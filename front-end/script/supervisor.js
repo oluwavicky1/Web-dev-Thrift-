@@ -46,14 +46,16 @@ function get_schedules(data = null) {
       let resp = JSON.parse(xhr.response);
       console.log(resp);
 
-      let table = document.getElementById("student_history");
+      let table = document.getElementById("supervisor_history");
+
+      const status = data.status ? "Success" : "Cancelled";
 
       resp.data.forEach((data) => {
         let tr = document.createElement("tr");
 
         tr.innerHTML =
           "<td>" +
-          data.scheduleName +
+          data.name +
           "</td>" +
           "<td>" +
           data.studentCount +
@@ -67,9 +69,11 @@ function get_schedules(data = null) {
           data.day +
           "</td>" +
           "<td>" +
-          data.status
-            ? "Success"
-            : "Cancelled" + "</td>";
+          status +
+          "</td>" +
+          "<td>" +
+          `<a href=""> Attendance </a> ` + //put attendance here
+          "</td>";
 
         table.appendChild(tr);
       });
