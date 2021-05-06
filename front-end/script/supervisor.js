@@ -33,56 +33,99 @@ function create_schedule() {
 
 //get meetings
 function get_schedules(data = null) {
-  xhr.open(
-    "GET",
-    `http://localhost:80/Web Project/api/meeting/schedule.php?supervisorId=${sessionStorage.getItem(
-      "id"
-    )}&semesterId=${document.getElementById("semesterSelector").value}`
-  );
-  xhr.send();
+  if (data == 1) {
+    xhr.open(
+      "GET",
+      `http://localhost:80/Web Project/api/meeting/schedule_history.php?supervisorId=${sessionStorage.getItem(
+        "id"
+      )}&semesterId=${document.getElementById("semesterSelector").value}`
+    );
+    xhr.send();
 
-  xhr.onload = function () {
-    let resp = JSON.parse(xhr.response);
-    console.log(resp);
+    xhr.onload = function () {
+      let resp = JSON.parse(xhr.response);
+      console.log(resp);
 
-    let table = document.getElementById("supervisor_meetings");
+      let table = document.getElementById("student_history");
 
-    resp.data.forEach((data) => {
-      let tr = document.createElement("tr");
+      resp.data.forEach((data) => {
+        let tr = document.createElement("tr");
 
-      tr.innerHTML =
-        "<td>" +
-        data.name +
-        "</td>" +
-        "<td>" +
-        data.timeStart +
-        " - " +
-        data.timeEnd +
-        "</td>" +
-        "<td>" +
-        data.day +
-        "</td>" +
-        "<td>" +
-        data.studentLimit +
-        "</td>" +
-        "<td>" +
-        data.studentCount +
-        "</td>" +
-        "<td>" +
-        "<button " +
-        "class = btn-btn-black  " +
-        "type = submit " +
-        "name = button " +
-        "onclick = " +
-        `cancel_meeting(${data.id})` +
-        ">" +
-        "Cancel meeting" +
-        "</button>" +
-        "</td>";
+        tr.innerHTML =
+          "<td>" +
+          data.scheduleName +
+          "</td>" +
+          "<td>" +
+          data.studentCount +
+          "</td>" +
+          "<td>" +
+          data.timeStart +
+          " - " +
+          data.timeEnd +
+          "</td>" +
+          "<td>" +
+          data.day +
+          "</td>" +
+          "<td>" +
+          data.status
+            ? "Success"
+            : "Cancelled" + "</td>";
 
-      table.appendChild(tr);
-    });
-  };
+        table.appendChild(tr);
+      });
+    };
+  } else {
+    xhr.open(
+      "GET",
+      `http://localhost:80/Web Project/api/meeting/schedule.php?supervisorId=${sessionStorage.getItem(
+        "id"
+      )}&semesterId=${document.getElementById("semesterSelector").value}`
+    );
+    xhr.send();
+
+    xhr.onload = function () {
+      let resp = JSON.parse(xhr.response);
+      console.log(resp);
+
+      let table = document.getElementById("supervisor_meetings");
+
+      resp.data.forEach((data) => {
+        let tr = document.createElement("tr");
+
+        tr.innerHTML =
+          "<td>" +
+          data.name +
+          "</td>" +
+          "<td>" +
+          data.timeStart +
+          " - " +
+          data.timeEnd +
+          "</td>" +
+          "<td>" +
+          data.day +
+          "</td>" +
+          "<td>" +
+          data.studentLimit +
+          "</td>" +
+          "<td>" +
+          data.studentCount +
+          "</td>" +
+          "<td>" +
+          "<button " +
+          "class = btn-btn-black  " +
+          "type = submit " +
+          "name = button " +
+          "onclick = " +
+          `cancel_meeting(${data.id})` +
+          ">" +
+          "Cancel meeting" +
+          "</button>" +
+          "</td>";
+
+        table.appendChild(tr);
+      });
+    };
+  }
 }
 
 function cancel_meeting(id) {

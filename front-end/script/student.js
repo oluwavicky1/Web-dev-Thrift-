@@ -79,8 +79,8 @@ function get_schedules(data = null) {
           "</td>" +
           "<td>" +
           data.status +
-          "</td>" +
-          table.appendChild(tr);
+          "</td>";
+        table.appendChild(tr);
       });
     };
   } else {
