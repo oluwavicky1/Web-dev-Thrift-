@@ -112,6 +112,8 @@ function get_semesters() {
 
       sel.appendChild(opt);
     }
+    sel.value = resp.data[0].id;
+    sel.onchange(null);
   };
 }
 

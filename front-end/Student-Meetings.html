@@ -8,37 +8,34 @@
   </head>
 
   <body>
+  <hr/>
     <aside>
       <p id="logo">Schedular</p>
       <p>
         <a
           href="student-meetings.html"
-          id="fullbuttonwidth"
-          class="btn btn-black text-left"
+          class="btn btn-black text-left fullbuttonwidth"
           >Meeting</a
         >
       </p>
       <p>
         <a
           href="student-new-meetings.html"
-          id="fullbuttonwidth"
-          class="btn btn-db text-left"
+          class="btn btn-db text-left fullbuttonwidth"
           >New meeting</a
         >
       </p>
       <p>
         <a
           href="student-history.html"
-          id="fullbuttonwidth"
-          class="btn btn-db text-left"
+          class="btn btn-db text-left fullbuttonwidth"
           >History</a
         >
       </p>
 
       <p id="Logout">
         <button
-          id="fullbuttonwidth"
-          class="btn btn-black"
+          class="btn btn-black fullbuttonwidth"
           type="button"
           name="button"
           onclick="logout()"
@@ -60,7 +57,7 @@
         <div class="col-6">
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
-            <select id="semesterSelector">
+            <select id="semesterSelector" onchange="get_schedules()">
               <option>--Select semester--</option>
             </select>
           </div>
@@ -74,43 +71,6 @@
           <th>Time span</th>
           <th>Day</th>
         </tr>
-
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>Mr. Azeez</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td><a href="">View messages</a></td>
-          <td>
-            <button class="btn btn-black" type="submit" name="button">
-              Cancel meeting
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>Mr. Azeez</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td><a href="">View messages</a></td>
-          <td>
-            <button class="btn btn-black" type="submit" name="button">
-              Cancel meeting
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>Mr. Azeez</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td><a href="">View messages</a></td>
-          <td>
-            <button class="btn btn-black" type="submit" name="button">
-              Cancel meeting
-            </button>
-          </td>
-        </tr>
       </table>
     </main>
 
@@ -120,7 +80,5 @@
       auth();
       get_profile();
       get_semesters();
-      get_schedules();
-    </script>
-  </body>
-</html>
+      // get_schedules();
+     </script>

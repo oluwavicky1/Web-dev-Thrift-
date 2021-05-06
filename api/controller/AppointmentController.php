@@ -37,12 +37,15 @@ class AppointmentController
             return error("Appointments slots filled.");
         }
         $this->appointment->semesterId = $sch['semesterId'];
-        $response = $this->appointment->addAppointment();
-        if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
-            $this->sendMessage($this->appointment->scheduleId, $this->appointment->userId);
-            return success("Appointment created successfully", null);
+        if (count($this->appointment->getAppointmentByUserAndId()) == 0) {
+            $response = $this->appointment->addAppointment();
+            if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
+                $this->sendMessage($this->appointment->scheduleId, $this->appointment->userId);
+                return success("Appointment created successfully", null);
+            }
+            return error($response[RESPONSE_MESSAGE]);
         }
-        return error($response[RESPONSE_MESSAGE]);
+        return success("Appointment already set", null);
     }
 
     function getAppointmentByUser($userId, $semesterId) {
@@ -58,7 +61,7 @@ class AppointmentController
               "scheduleName" => $sch['name'],
               "scheduleId" => $sch['id'],
               "status" => $appointment['status'],
-              "name" => $name,
+              "supervisorName" => $name,
               "timeSpan" => $sch['timeStart']. ' - '. $sch['timeEnd'],
               "day" => $sch['day']
             );

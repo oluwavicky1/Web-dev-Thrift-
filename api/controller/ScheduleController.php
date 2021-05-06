@@ -82,6 +82,9 @@ class ScheduleController
 
     function getScheduleUsers($scheduleId) {
         $this->appointment->scheduleId = $scheduleId;
+        $this->schedule->id = $scheduleId;
+        $sch = $this->schedule->getSchedule()[0];
+        $this->appointment->semesterId = $sch['semesterId'];
         $appointments = $this->appointment->getAppointmentBySchedule();
         $response = array_map(function ($appointment) {
             return array(

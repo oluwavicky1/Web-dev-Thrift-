@@ -53,6 +53,11 @@ class Appointment
         return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME, array(COL_USER_ID => $this->userId))[RESPONSE_DATA]);
     }
 
+    function getAppointmentByUserAndId() {
+        return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME,
+            array(COL_USER_ID => $this->userId, COL_SCHEDULE_ID => $this->scheduleId))[RESPONSE_DATA]);
+    }
+
     function getAppointmentByUserAndSemester() {
         return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME,
             array(COL_USER_ID => $this->userId, COL_SEMESTER_ID => $this->semesterId, COL_STATUS => AppointmentStatus::pending))[RESPONSE_DATA]);

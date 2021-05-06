@@ -33,7 +33,7 @@ function get_schedules(data = null) {
           "</td>" +
           "<td>" +
           "<button " +
-          "class = btn-btn-black  " +
+          "class = 'btn btn-black'  " +
           "type = submit " +
           "name = button " +
           "onclick = " +
@@ -63,23 +63,25 @@ function get_schedules(data = null) {
 
       resp.data.forEach((data) => {
         let tr = document.createElement("tr");
+        let p = document.createElement("p");
+        p.innerText = data.status;
+        let td = document.createElement("td");
+        td.appendChild(p);
 
         tr.innerHTML =
-          "<td>" +
-          data.scheduleName +
-          "</td>" +
-          "<td>" +
-          data.owner +
-          "</td>" +
-          "<td>" +
-          data.timeSpan +
-          "</td>" +
-          "<td>" +
-          data.day +
-          "</td>" +
-          "<td>" +
-          data.status +
-          "</td>" +
+            "<td>" +
+            data.scheduleName +
+            "</td>" +
+            "<td>" +
+            data.name +
+            "</td>" +
+            "<td>" +
+            data.timeSpan +
+            "</td>" +
+            "<td>" +
+            data.day +
+            "</td>";
+          tr.appendChild(td);
           table.appendChild(tr);
       });
     };
@@ -104,31 +106,34 @@ function get_schedules(data = null) {
 
       resp.data.forEach((data) => {
         let tr = document.createElement("tr");
+        let p = document.createElement("p");
+        p.innerText = data.status;
+        let tdParagraph = document.createElement("td");
+        tdParagraph.appendChild(p);
 
         tr.innerHTML =
-          "<td>" +
-          data.scheduleName +
-          "</td>" +
-          "<td>" +
-          data.name +
-          "</td>" +
-          "<td>" +
-          data.timeSpan;
-        "</td>" +
-          "<td>" +
-          data.day +
-          "<td>" +
-          "<button " +
-          "class = btn-btn-black" +
-          "type = submit " +
-          "name = button " +
-          "onclick = " +
-          `cancel_meeting(${data.id})` +
-          ">" +
-          "Join meeting" +
-          "</button>" +
-          "</td>";
-
+            "<td>" +
+            data.scheduleName +
+            "</td>" +
+            "<td>" +
+            data.supervisorName +
+            "</td>" +
+            "<td>" +
+            data.timeSpan +
+            "</td>" +
+            "<td>" +
+            data.day +
+            "</td>";
+        tr.appendChild(tdParagraph);
+        let button = document.createElement('button');
+        button.setAttribute('id', data.id);
+        button.classList.add("btn");
+        button.classList.add("btn-black");
+        button.addEventListener('click', function() {cancel_meeting(data.id)});
+        button.innerText = 'Cancel Meeting';
+        let td = document.createElement("td");
+        td.appendChild(button);
+        tr.appendChild(td);
         table.appendChild(tr);
       });
     };
@@ -136,7 +141,7 @@ function get_schedules(data = null) {
 }
 
 //user cancel a meeting
-function cancel_meeting() {
+function cancel_meeting(id) {
   const data = JSON.stringify({
     id: id,
     supervisorId: sessionStorage.getItem("id"),
@@ -144,7 +149,7 @@ function cancel_meeting() {
     message: "test",
   });
 
-  xhr.open("POST", `http://localhost:80/Web Project/api/meeting/schedule.php`);
+  xhr.open("POST", `http://localhost:80/Web Project/api/meeting/cancel.php`);
   xhr.send(data);
   xhr.onload = function () {
     let resp = JSON.parse(xhr.response);
@@ -152,6 +157,7 @@ function cancel_meeting() {
     console.log(resp);
 
     alert(resp.message);
+    location.reload();
   };
 }
 
