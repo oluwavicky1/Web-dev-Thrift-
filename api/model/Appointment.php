@@ -39,7 +39,8 @@ class Appointment
     }
 
     function getAppointmentBySchedule() {
-        return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME, array(COL_SCHEDULE_ID => $this->scheduleId))[RESPONSE_DATA]);
+        return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME,
+            array(COL_SCHEDULE_ID => $this->scheduleId, COL_SEMESTER_ID => $this->semesterId))[RESPONSE_DATA]);
     }
 
     function getPendingAppointmentBySchedule() {
@@ -53,6 +54,11 @@ class Appointment
     }
 
     function getAppointmentByUserAndSemester() {
+        return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME,
+            array(COL_USER_ID => $this->userId, COL_SEMESTER_ID => $this->semesterId, COL_STATUS => AppointmentStatus::pending))[RESPONSE_DATA]);
+    }
+
+    function getAppointmentByUserAndSemesterHistory() {
         return $this->transform($this->db->select(APPOINTMENT_TABLE_NAME,
             array(COL_USER_ID => $this->userId, COL_SEMESTER_ID => $this->semesterId))[RESPONSE_DATA]);
     }

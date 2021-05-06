@@ -66,6 +66,27 @@ class AppointmentController
         return success('Appointments requested', $response);
     }
 
+    function getAppointmentByUserHistory($userId, $semesterId) {
+        $this->appointment->userId = $userId;
+        $this->appointment->semesterId = $semesterId;
+        $response = $this->appointment->getAppointmentByUserAndSemesterHistory();
+        $response = array_map(function ($appointment) {
+            $this->schedule->id = $appointment['scheduleId'];
+            $sch = $this->schedule->getSchedule()[0];
+            $name = $this->user->getUserById($sch['supervisorId'])[0]['surname'];
+            return array(
+                "id" => $appointment['id'],
+                "scheduleName" => $sch['name'],
+                "scheduleId" => $sch['id'],
+                "status" => $appointment['status'],
+                "name" => $name,
+                "timeSpan" => $sch['timeStart']. ' - '. $sch['timeEnd'],
+                "day" => $sch['day']
+            );
+        }, $response);
+        return success('Appointments requested', $response);
+    }
+
     function markAttendance($appointmentId, $status) {
         $this->appointment->id = $appointmentId;
         if ($status) {
@@ -74,7 +95,7 @@ class AppointmentController
             $this->appointment->status = AppointmentStatus::expired;
         }
         $response =  $this->appointment->updateAppointment();
-        if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
+        if ($response[RESPONSE_STATUS] != DbResponse::STATUS_ERROR) {
             return success('Appointment updated', $response);
         }
         return error($response[RESPONSE_MESSAGE]);

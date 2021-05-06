@@ -62,6 +62,38 @@ class ScheduleController
         return unauthorized("User id ". $supervisorId . " is not a supervisor");
     }
 
+    function getScheduleBySupervisorHistory($supervisorId, $semesterId) {
+        $this->user->id = $supervisorId;
+        if ($this->user->isSupervisor()) {
+            $this->schedule->supervisorId = $supervisorId;
+            if (isset($semesterId)) {
+                $this->schedule->semesterId = $semesterId;
+                $resp = $this->schedule->getScheduleBySupervisorAndSemesterHistory();
+            } else {
+                $resp = $this->schedule->getSchedulesBySupervisor();
+            }
+            for ($i = 0; $i < count($resp); $i++) {
+                $resp[$i]['studentCount'] = $this->getAppointmentCount($resp[$i]['id']);
+            }
+            return success("Schedules requested",  $resp);
+        }
+        return unauthorized("User id ". $supervisorId . " is not a supervisor");
+    }
+
+    function getScheduleUsers($scheduleId) {
+        $this->appointment->scheduleId = $scheduleId;
+        $appointments = $this->appointment->getAppointmentBySchedule();
+        $response = array_map(function ($appointment) {
+            return array(
+                'userId' => $appointment['userId'],
+                'username' => $this->user->getUserById($appointment['userId'])[0]['first_name'],
+                'status' => $appointment['status'],
+                'appointmentId' => $appointment['id']
+            );
+        }, $appointments);
+        return success('Users requested', $response);
+    }
+
     function getSchedules() {
         return success("Schedules requested", $this->schedule->getSchedules());
     }
