@@ -50,21 +50,19 @@
 
     <main>
       <nav>
-        <p>Jide Plumptre</p>
+        <p id="display_name">Jide Plumptre</p>
       </nav>
 
       <div class="row">
         <div class="col-6">
-          <h1>Good morning, Jide</h1>
+          <h1 id="greeting"></h1>
           <p id="view">View previous meetings</p>
         </div>
         <div class="col-6">
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
-            <select id="semesterSelector">
+            <select id="semesterSelector" onchange="get_schedules(2)">
               <option value="null">--Select semester--</option>
-              <option>1st semester(2019/2010)</option>
-              <option>2nd semester(2019/2010)</option>
             </select>
           </div>
         </div>
@@ -111,8 +109,11 @@
     </main>
 
     <script src="./script/script.js"></script>
+    <script src="./script/student.js"></script>
     <script>
       auth();
+      get_profile();
+      get_semesters();
     </script>
   </body>
 </html>

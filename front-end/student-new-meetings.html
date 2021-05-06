@@ -61,63 +61,29 @@
         <div class="col-6">
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
-            <select id="semesterSelector">
+            <select id="semesterSelector" onchange="get_schedules(1)">
               <option value="null">--Select semester--</option>
-              <option>1st semester(2019/2010)</option>
-              <option>2nd semester(2019/2010)</option>
             </select>
           </div>
         </div>
       </div>
 
-      <table>
+      <table id="student_new_meetings">
         <tr>
-          <th>Meeting ID</th>
+          <th>Meeting Name</th>
           <th>Supervisor</th>
           <th>Time span</th>
           <th>Day</th>
-        </tr>
-
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>Mr. Azeez</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td>
-            <button class="btn btn-black" type="submit" name="button">
-              Join meeting
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>Mr. Azeez</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td>
-            <button class="btn btn-black" type="submit" name="button">
-              Join meeting
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>Mr. Azeez</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td>
-            <button class="btn btn-black" type="submit" name="button">
-              Join meeting
-            </button>
-          </td>
         </tr>
       </table>
     </main>
 
     <script src="./script/script.js"></script>
+    <script src="./script/student.js"></script>
     <script>
       auth();
       get_profile();
+      get_semesters();
     </script>
   </body>
 </html>

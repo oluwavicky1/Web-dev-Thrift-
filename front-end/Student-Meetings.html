@@ -61,15 +61,15 @@
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
             <select id="semesterSelector">
-              <!-- <option value="null">--Select semester--</option> -->
+              <option>--Select semester--</option>
             </select>
           </div>
         </div>
       </div>
 
-      <table style="width: 100%" id="student-meetings">
+      <table style="width: 100%" id="student_meetings">
         <tr>
-          <th>Meeting ID</th>
+          <th>Meeting Name</th>
           <th>Supervisor</th>
           <th>Time span</th>
           <th>Day</th>
@@ -120,6 +120,7 @@
       auth();
       get_profile();
       get_semesters();
+      get_schedules();
     </script>
   </body>
 </html>

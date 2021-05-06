@@ -32,7 +32,7 @@ function create_schedule() {
 }
 
 //get meetings
-function get_schedules() {
+function get_schedules(data = null) {
   xhr.open(
     "GET",
     `http://localhost:80/Web Project/api/meeting/schedule.php?supervisorId=${sessionStorage.getItem(
