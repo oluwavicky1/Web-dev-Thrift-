@@ -46,6 +46,43 @@ function get_schedules(data = null) {
         table.appendChild(tr);
       });
     };
+  } else if (data == 2) {
+    xhr.open(
+      "GET",
+      `http://localhost:80/Web Project/api/meeting/appointment_history.php?userId=${sessionStorage.getItem(
+        "id"
+      )}&semesterId=${document.getElementById("semesterSelector").value}`
+    );
+    xhr.send();
+
+    xhr.onload = function () {
+      let resp = JSON.parse(xhr.response);
+      console.log(resp);
+
+      let table = document.getElementById("student_history");
+
+      resp.data.forEach((data) => {
+        let tr = document.createElement("tr");
+
+        tr.innerHTML =
+          "<td>" +
+          data.scheduleName +
+          "</td>" +
+          "<td>" +
+          data.owner +
+          "</td>" +
+          "<td>" +
+          data.timeSpan +
+          "</td>" +
+          "<td>" +
+          data.day +
+          "</td>" +
+          "<td>" +
+          data.status +
+          "</td>" +
+          table.appendChild(tr);
+      });
+    };
   } else {
     xhr.open(
       "GET",
