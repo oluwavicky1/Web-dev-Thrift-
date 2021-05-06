@@ -78,6 +78,21 @@ function SignIn() {
   };
 }
 
+//authentication
+function auth() {
+  console.log(sessionStorage.getItem("id"));
+  if (!sessionStorage.getItem("id")) {
+    window.location.replace("http://127.0.0.1:5500/front-end/signin.html");
+  }
+}
+
+//logout
+function logout() {
+  sessionStorage.clear();
+  console.log(sessionStorage.getItem("type"));
+  window.location.replace("http://127.0.0.1:5500/front-end/signin.html");
+}
+
 //get seemesters
 function get_semesters() {
   var sel = document.getElementById("semesterSelector");
@@ -98,6 +113,17 @@ function get_semesters() {
       sel.appendChild(opt);
     }
   };
+}
+
+//get profile
+function get_profile() {
+  document.getElementById("display_name").innerHTML = `${sessionStorage.getItem(
+    "firstName"
+  )} ${sessionStorage.getItem("surname")}`;
+
+  document.getElementById(
+    "greeting"
+  ).innerHTML = `Hello, ${sessionStorage.getItem("firstName")}`;
 }
 
 //generate meeting table for student

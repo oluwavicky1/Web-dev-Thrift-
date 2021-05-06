@@ -28,7 +28,12 @@
       </p>
 
       <p id="Logout">
-        <button class="btn btn-black" type="submit" name="button">
+        <button
+          class="btn btn-black"
+          ype="button"
+          name="button"
+          onclick="logout()"
+        >
           Log Out
         </button>
       </p>
@@ -36,10 +41,10 @@
 
     <main>
       <nav>
-        <p>Azeez A.B</p>
+        <p id="display_name"></p>
       </nav>
 
-      <h1>Good morning, Mr. Azeez</h1>
+      <h1 id="greeting"></h1>
       <p class="view">Set new meetings</p>
 
       <form>
@@ -47,12 +52,9 @@
           <div class="form-control w-75">
             <label for="meeting_id">Choose semester </label>
             <select id="semesterSelector">
-              <option value="null">--Select semester--</option>
+              <!-- <option value="null">--Select semester--</option>
               <option value="1">1st semester(2019/2020)</option>
-              <option value="2">2nd semester(2019/2020)</option>
-              <!-- <script>
-                get_semesters();
-              </script> -->
+              <option value="2">2nd semester(2019/2020)</option> -->
             </select>
           </div>
 
@@ -109,5 +111,10 @@
 
     <script src="./script/script.js"></script>
     <script src="./script/supervisor.js"></script>
+    <script>
+      auth();
+      get_profile();
+      get_semesters();
+    </script>
   </body>
 </html>
