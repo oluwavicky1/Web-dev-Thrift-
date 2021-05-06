@@ -39,19 +39,19 @@ class Schedule
    }
 
    function getSchedules() {
-       return $this->db->select(SCHEDULE_TABLE_NAME, array())[RESPONSE_DATA];
+       return $this->transform($this->db->select(SCHEDULE_TABLE_NAME, array())[RESPONSE_DATA]);
    }
 
    function getSchedulesBySemester() {
-       return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_SEMESTER_ID => $this->semesterId))[RESPONSE_DATA];
+       return $this->transform($this->db->select(SCHEDULE_TABLE_NAME, array(COL_SEMESTER_ID => $this->semesterId))[RESPONSE_DATA]);
    }
 
    function getSchedulesBySupervisor() {
-       return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_DATA];
+       return $this->transform($this->db->select(SCHEDULE_TABLE_NAME, array(COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_DATA]);
    }
 
     function getSchedule() {
-        return $this->db->select(SCHEDULE_TABLE_NAME, array(COL_ID => $this->id))[RESPONSE_DATA];
+        return $this->transform($this->db->select(SCHEDULE_TABLE_NAME, array(COL_ID => $this->id))[RESPONSE_DATA]);
     }
 
    function updateSchedule() {
@@ -70,5 +70,22 @@ class Schedule
        return $this->db->select(SCHEDULE_TABLE_NAME,
                array(COL_ID => $this->id, COL_SUPERVISOR_ID => $this->supervisorId))[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS;
    }
+
+    function transform($content) {
+        return array_map(function ($content) {
+            return array(
+                'id' => $content[COL_ID],
+                'name'=> $content[COL_NAME],
+                'timeStart'=> $content[COL_TIME_START],
+                'timeEnd'=> $content[COL_TIME_END],
+                'day' => $content[COL_DAY],
+                'studentLimit' => $content[COL_STUDENT_LIMIT],
+                'supervisorId' => $content[COL_SUPERVISOR_ID],
+                'message' => $content[COL_MESSAGE],
+                'status' => $content[COL_STATUS],
+                'semesterId' => $content[COL_SEMESTER_ID]
+            );
+        }, $content);
+    }
 
 }
