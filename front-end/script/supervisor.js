@@ -72,7 +72,7 @@ function get_schedules(data = null) {
           status +
           "</td>" +
           "<td>" +
-          `<a href=""> Attendance </a> ` + //put attendance here
+          `<a href="/front-end/supervisor-scheduleattendance.html?id=${data.id}"> Attendance </a> ` + //put attendance here
           "</td>";
 
         table.appendChild(tr);
@@ -150,3 +150,11 @@ function cancel_meeting(id) {
     alert(resp.message);
   };
 }
+
+// functon get_attendance(){
+
+//     xhr.open("GET", `http://localhost:80/Web Project/api/meeting/schedule.php`);
+//     xhr.send(data);
+//     xhr.onload = function () {
+//       let resp = JSON.parse(xhr.response);
+// }
