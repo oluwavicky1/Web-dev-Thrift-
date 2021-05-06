@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/Student-Meetings.css">
+    <link rel="stylesheet" type="text/css" href="css/messages.css">
     <title></title>
   </head>
 
@@ -22,9 +23,71 @@
         <p>Azeez A.B</p>
       </nav>
 
-      <h1>Meeting ID</h1>
-      <p id="view">messages</p>
+      <div class="row">
+        <div class="col-6">
+          <!-- this is the meetings id
+          It changes based on the meeting  -->
+          <h1>Meeting ID</h1>
+          <p id="view">Messages</p>
 
+        </div>
+
+        <div class="col-6">
+          <div class="Filter">
+            <label for="Filter">Filter</label>
+            <select id="flterSelector">
+              <option value="null">--Select messsage type--</option>
+              <option value="sent"> Sent messages </option>
+              <option value="recieved"> Recieved messages</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+
+          <hr>
+
+      </div>
+
+      <section>
+        <div class="message">
+          <div class="message-box">
+            <span>
+                        Please make sure you come early, I will not allow any late commers into my office.
+                        If you miss this meeting, you’ll have to join the next one.
+            </span>
+          </div>
+
+          <div class="sender">
+            <p>Mr.Azeez</p>
+          </div>
+          <!-- <div class="time">
+            <output type="text" id="currentTime" name="" value="">
+            <script type="text/javascript">
+              var today = new Date();
+              var time = today.getHours() + ":" +
+              today.getMinutes() + ":" +
+
+              document.getElementById("currentTime").value = time;
+            </script>
+          </div> -->
+        </div>
+
+        <div class="message">
+          <div class="message-box">
+            <span>
+                        Please make sure you come early, I will not allow any late commers into my office.
+                        If you miss this meeting, you’ll have to join the next one.
+            </span>
+          </div>
+
+          <div class="sender">
+            <p>Mr.Azeez</p>
+          </div>
+        </div>
+
+      </section>
 
     </main>
   </body>

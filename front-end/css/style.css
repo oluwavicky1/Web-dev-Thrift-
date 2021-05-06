@@ -106,9 +106,24 @@ nav{
 }
 .FilterSemester{
   float: right;
-  margin-right: 50px; 
+  margin-right: 50px;
 }
 #semesterSelector{
+  background: #F9F9F9;
+  border: none;
+  display: block;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 8px 20px;
+  height: 40px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.Filter{
+  float: right;
+  margin-right: 50px;
+}
+#filterSelector{
   background: #F9F9F9;
   border: none;
   display: block;
