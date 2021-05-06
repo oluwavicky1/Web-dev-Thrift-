@@ -39,8 +39,9 @@
         <button
           id="fullbuttonwidth"
           class="btn btn-black"
-          type="submit"
+          type="button"
           name="button"
+          onclick="logout()"
         >
           Log Out
         </button>
@@ -49,29 +50,26 @@
 
     <main>
       <nav>
-        <p>Jide Plumptre</p>
+        <p id="display_name"></p>
       </nav>
       <div class="row">
         <div class="col-6">
-          <h1>Good morning, Jide</h1>
+          <h1 id="greeting"></h1>
           <p id="view">View your meetings</p>
         </div>
         <div class="col-6">
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
             <select id="semesterSelector">
-              <option value="null">--Select semester--</option>
-              <option value="1">1st semester(2019/2020)</option>
-              <option value="2">2nd semester(2019/2020)</option>
-              <!-- <option value="null">--Select semester--</option> -->
+              <option>--Select semester--</option>
             </select>
           </div>
         </div>
       </div>
 
-      <table style="width: 100%">
+      <table style="width: 100%" id="student_meetings">
         <tr>
-          <th>Meeting ID</th>
+          <th>Meeting Name</th>
           <th>Supervisor</th>
           <th>Time span</th>
           <th>Day</th>
@@ -117,8 +115,12 @@
     </main>
 
     <script src="./script/script.js"></script>
+    <script src="./script/student.js"></script>
     <script>
+      auth();
+      get_profile();
       get_semesters();
+      get_schedules();
     </script>
   </body>
 </html>

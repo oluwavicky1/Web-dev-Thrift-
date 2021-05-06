@@ -104,6 +104,7 @@ class ScheduleController
         $response = array_map(function ($schedule) {
             $name = $this->user->getUserById($schedule['supervisorId'])[0]['surname'];
             return array(
+                'id' => $schedule['id'],
                 'scheduleName' => $schedule['name'],
                 "timeSpan" => $schedule['timeStart']. ' - '. $schedule['timeEnd'],
                 "day" => $schedule['day'],

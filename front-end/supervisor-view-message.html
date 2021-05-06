@@ -11,16 +11,47 @@
   <body>
     <aside>
       <p id="logo">Schedular</p>
-      <p><a href="supervisor-meetings.html" id="fullbuttonwidth" class="btn btn-db text-left">Meeting</a></p>
-      <p><a href="supervisor-new-meeting.html" id="fullbuttonwidth" class="btn btn-db text-left">New meeting</a></p>
-      <p><a href="supervisor-history.html" id="fullbuttonwidth" class="btn btn-black text-left">History</a></p>
+      <p>
+        <a
+          href="supervisor-meetings.html"
+          id="fullbuttonwidth"
+          class="btn btn-db text-left"
+          >Meeting</a
+        >
+      </p>
+      <p>
+        <a
+          href="supervisor-new-meeting.html"
+          id="fullbuttonwidth"
+          class="btn btn-db text-left"
+          >New meeting</a
+        >
+      </p>
+      <p>
+        <a
+          href="supervisor-history.html"
+          id="fullbuttonwidth"
+          class="btn btn-black text-left"
+          >History</a
+        >
+      </p>
 
-      <p id="Logout"><button id="fullbuttonwidth" class="btn btn-black" type="submit" name="button"> Log Out</button></p>
+      <p id="Logout">
+        <button
+          id="fullbuttonwidth"
+          class="btn btn-black"
+          type="button"
+          name="button"
+          onclick="logout()"
+        >
+          Log Out
+        </button>
+      </p>
     </aside>
 
     <main>
       <nav>
-        <p>Azeez A.B</p>
+        <p id="display_name"></p>
       </nav>
 
       <div class="row">
@@ -90,5 +121,11 @@
       </section>
 
     </main>
+
+    <script src="./script/script.js"></script>
+    <script>
+      auth();
+      get_profile();
+    </script>
   </body>
 </html>
