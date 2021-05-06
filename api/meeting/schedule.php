@@ -32,7 +32,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             error("Data can not be null");
         }
         break;
-    case 'PATCH':
+    case 'PUT':
         if (isset($data)) {
             echo $controller->updateSchedule($data);
         } else {

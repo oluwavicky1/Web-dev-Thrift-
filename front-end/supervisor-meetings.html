@@ -61,24 +61,25 @@
         <div class="col-6">
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
-            <select id="semesterSelector">
-              <!-- <option value="null">--Select semester--</option>
-              <option>1st semester(2019/2010)</option>
+            <select id="semesterSelector" onchange="get_schedules()">
+              <option value="null">--Select semester--</option>
+              <!-- <option>1st semester(2019/2010)</option>
               <option>2nd semester(2019/2010)</option> -->
             </select>
           </div>
         </div>
       </div>
 
-      <table style="width: 100%">
+      <table style="width: 100%" id="supervisor_meetings">
         <tr>
-          <th>Meeting ID</th>
+          <th>Meeting Name</th>
           <th>Time span</th>
           <th>Day</th>
+          <th>Students Limit</th>
           <th>Reg. Students</th>
         </tr>
 
-        <tr>
+        <!-- <tr>
           <td>PROJECT TOPIC</td>
           <td>12:00 pm - 3:00 pm</td>
           <td>Mon</td>
@@ -113,11 +114,12 @@
               Cancel meeting
             </button>
           </td>
-        </tr>
+        </tr> -->
       </table>
     </main>
 
     <script src="./script/script.js"></script>
+    <script src="./script/supervisor.js"></script>
     <script>
       auth();
       get_profile();

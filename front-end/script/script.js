@@ -51,7 +51,7 @@ function SignIn() {
   xhr.onload = function () {
     let resp = JSON.parse(xhr.response);
     if (xhr.status == 200) {
-      alert(resp.message);
+      //   alert(resp.message);
 
       //   save user's details in a session
       sessionStorage.setItem("id", resp.data.id);
@@ -101,7 +101,7 @@ function get_semesters() {
 
   xhr.onload = function () {
     let resp = JSON.parse(xhr.response);
-    console.log(resp.data);
+    // console.log(resp.data);
     for (let i = 0; i < resp.data.length; i++) {
       const semester = resp.data[i];
       const opt = document.createElement("option");
