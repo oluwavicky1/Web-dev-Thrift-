@@ -7,6 +7,7 @@ include_once '../model/Semester.php';
 include_once '../model/Message.php';
 include_once '../model/Appointment.php';
 include_once '../model/AppointmentStatus.php';
+include_once '../model/DbResponse.php';
 
 class AppointmentController
 {
@@ -30,7 +31,12 @@ class AppointmentController
         $this->appointment->userId = $appointment->userId;
         $this->appointment->scheduleId = $appointment->scheduleId;
         $this->schedule->id = $appointment->scheduleId;
-        $sch = $this->schedule->getSchedule();
+        $sch = $this->schedule->getSchedule()[0];
+        $appCount = count($this->appointment->getPendingAppointmentBySchedule());
+        if ($appCount == $sch['studentLimit']) {
+            return error("Appointments slots filled.");
+        }
+        $this->appointment->semesterId = $sch['semesterId'];
         $response = $this->appointment->addAppointment();
         if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
             $this->sendMessage($this->appointment->scheduleId, $this->appointment->userId);
@@ -39,9 +45,39 @@ class AppointmentController
         return error($response[RESPONSE_MESSAGE]);
     }
 
-    function getAppointmentByUser($userId) {
+    function getAppointmentByUser($userId, $semesterId) {
         $this->appointment->userId = $userId;
-        return success('Appointments requested', $this->appointment->getAppointmentByUser());
+        $this->appointment->semesterId = $semesterId;
+        $response = $this->appointment->getAppointmentByUserAndSemester();
+        $response = array_map(function ($appointment) {
+            $this->schedule->id = $appointment['scheduleId'];
+            $sch = $this->schedule->getSchedule()[0];
+            $name = $this->user->getUserById($sch['supervisorId'])[0]['surname'];
+            return array(
+               "id" => $appointment['id'],
+              "scheduleName" => $sch['name'],
+              "scheduleId" => $sch['id'],
+              "status" => $appointment['status'],
+              "name" => $name,
+              "timeSpan" => $sch['timeStart']. ' - '. $sch['timeEnd'],
+              "day" => $sch['day']
+            );
+        }, $response);
+        return success('Appointments requested', $response);
+    }
+
+    function markAttendance($appointmentId, $status) {
+        $this->appointment->id = $appointmentId;
+        if ($status) {
+            $this->appointment->status = AppointmentStatus::success;
+        } else {
+            $this->appointment->status = AppointmentStatus::expired;
+        }
+        $response =  $this->appointment->updateAppointment();
+        if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
+            return success('Appointment updated', $response);
+        }
+        return error($response[RESPONSE_MESSAGE]);
     }
 
     function getAppointmentBySchedule($scheduleId) {
@@ -51,20 +87,29 @@ class AppointmentController
 
     function cancelAppointment($appointment) {
         $this->appointment->id = $appointment->id;
-        $this->appointment->status = AppointmentStatus::cancelled;
-        $response = $this->appointment->updateAppointment();
-        if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
-            $app = $this->appointment->getAppointmentById();
-            $this->sendCustomMessage($app[COL_SCHEDULE_ID], $app[COL_USER_ID], $appointment->message);
+        $app = $this->appointment->getAppointmentById()[0];
+        $this->schedule->id = $app['scheduleId'];
+        $sch = $this->schedule->getSchedule()[0];
+        $curr_time = time();
+        $day = date('d', $curr_time);
+        $timeStart = strtotime($sch['timeStart']);
+        if ($day != $sch['day'] || $curr_time - $timeStart >= 36000) {
+            $this->appointment->status = AppointmentStatus::cancelled;
+            $response = $this->appointment->updateAppointment();
+            if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
+                $this->sendCustomMessage($app['scheduleId'], $app['userId'], $appointment->message);
+            }
+            return success('Appointment Cancelled', null);
         }
+        return error('Can not cancel appointment');
     }
 
     private function sendMessage($scheduleId, $userId) {
         $this->schedule->id = $scheduleId;
-        $schedule = $this->schedule->getSchedule();
-        $content = $schedule[COL_MESSAGE];
+        $schedule = $this->schedule->getSchedule()[0];
+        $content = $schedule['message'];
         $this->message->scheduleId = $scheduleId;
-        $this->message->senderId = $schedule[COL_SUPERVISOR_ID];
+        $this->message->senderId = $schedule['supervisorId'];
         $this->message->receiverId = $userId;
         $this->message->content = $content;
         $this->message->addMessage();
@@ -72,10 +117,10 @@ class AppointmentController
 
     private function sendCustomMessage($scheduleId, $userId, $message) {
         $this->schedule->id = $scheduleId;
-        $schedule = $this->schedule->getSchedule();
+        $schedule = $this->schedule->getSchedule()[0];
         $this->message->scheduleId = $scheduleId;
-        $this->message->senderId = $schedule[COL_SUPERVISOR_ID];
-        $this->message->receiverId = $userId;
+        $this->message->senderId = $userId;
+        $this->message->receiverId = $schedule['supervisorId'];
         $this->message->content = $message;
         $this->message->addMessage();
     }

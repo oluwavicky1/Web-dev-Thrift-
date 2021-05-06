@@ -53,6 +53,10 @@ class User
         return $this->filterUsers($email, COL_EMAIL);
     }
 
+    function getUserById($id) {
+        return $this->filterUsers($id, COL_ID)[RESPONSE_DATA];
+    }
+
     function getUsers(): array {
         return $this->dbHelper->select(USER_TABLE_NAME, array());
     }

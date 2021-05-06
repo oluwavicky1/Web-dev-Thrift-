@@ -6,6 +6,7 @@ require_once '../model/User.php';
 require_once '../model/Semester.php';
 require_once '../model/Message.php';
 require_once '../model/Appointment.php';
+require_once '../model/AppointmentStatus.php';
 
 
 class ScheduleController
@@ -47,15 +48,16 @@ class ScheduleController
         $this->user->id = $supervisorId;
         if ($this->user->isSupervisor()) {
             $this->schedule->supervisorId = $supervisorId;
-            $res = $this->schedule->getSchedulesBySupervisor();
             if (isset($semesterId)) {
                 $this->schedule->semesterId = $semesterId;
-                $resp = array_filter($res, function($schedule) {
-                    return $schedule['semesterId'] == $this->schedule->semesterId;
-                });
-                return success("Schedules requested", $resp);
+                $resp = $this->schedule->getSchedulesBySupervisorAndSemester();
+            } else {
+                $resp = $this->schedule->getSchedulesBySupervisor();
             }
-            return success("Schedules requested", $res);
+            for ($i = 0; $i < count($resp); $i++) {
+                $resp[$i]['studentCount'] = $this->getAppointmentCount($resp[$i]['id']);
+            }
+            return success("Schedules requested",  $resp);
         }
         return unauthorized("User id ". $supervisorId . " is not a supervisor");
     }
@@ -66,7 +68,17 @@ class ScheduleController
 
     function getSchedulesBySemester($semesterId) {
         $this->schedule->semesterId = $semesterId;
-        return success("Schedules requested", $this->schedule->getSchedulesBySemester());
+        $response = $this->schedule->getSchedulesBySemester();
+        $response = array_map(function ($schedule) {
+            $name = $this->user->getUserById($schedule['supervisorId'])[0]['surname'];
+            return array(
+                'scheduleName' => $schedule['name'],
+                "timeSpan" => $schedule['timeStart']. ' - '. $schedule['timeEnd'],
+                "day" => $schedule['day'],
+                "owner" => $name
+            );
+        }, $response);
+        return success("Schedules requested", $response);
     }
 
     function getSchedule($id) {
@@ -83,6 +95,7 @@ class ScheduleController
             $this->schedule->updateSchedule();
             if (!$this->schedule->status) {
                 $this->sendMessage($schedule->message);
+                $this->appointment->scheduleId = $this->schedule->id;
             }
             return success("Schedule updated successfully", null);
         }
@@ -105,11 +118,21 @@ class ScheduleController
         $this->message->senderId = $this->schedule->supervisorId;
         $this->message->content = $message;
         $this->appointment->scheduleId = $this->schedule->id;
-        $appointments = $this->appointment->getAppointmentBySchedule();
+        $appointments = $this->appointment->getPendingAppointmentBySchedule();
         foreach ($appointments as $appointment) {
-            $this->message->receiverId = $appointment[COL_USER_ID];
+            $this->appointment->id = $appointment['id'];
+            $this->appointment->status = AppointmentStatus::cancelled;
+            $this->appointment->updateAppointment();
+            $this->message->receiverId = $appointment['userId'];
             $this->message->addMessage();
         }
+    }
+
+    function getAppointmentCount($scheduleId) {
+        $this->appointment->scheduleId = $scheduleId;
+//        echo $this->appointment->scheduleId;
+//        print_r($this->appointment->getPendingAppointmentBySchedule());
+        return count($this->appointment->getPendingAppointmentBySchedule());
     }
 
 }
