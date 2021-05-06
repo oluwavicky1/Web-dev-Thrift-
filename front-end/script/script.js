@@ -3,7 +3,7 @@ let xhr = new XMLHttpRequest();
 const baseUrl = "http://localhost:80/Web Project/api/";
 
 //Function to register a user
-async function Register() {
+function Register() {
   let type;
   var ele = document.getElementsByName("type");
 
@@ -39,7 +39,7 @@ async function Register() {
 }
 
 //sign in
-async function SignIn() {
+function SignIn() {
   const data = JSON.stringify({
     email: document.getElementById("Email").value,
     password: document.getElementById("Password").value,
@@ -54,7 +54,12 @@ async function SignIn() {
       alert(resp.message);
 
       //   save user's details in a session
-      sessionStorage.setItem("user", resp.data);
+      sessionStorage.setItem("id", resp.data.id);
+      sessionStorage.setItem("firstName", resp.data.firstName);
+      sessionStorage.setItem("email", resp.data.email);
+      sessionStorage.setItem("surname", resp.data.surname);
+      sessionStorage.setItem("type", resp.data.type);
+
       if (resp.data.type == "STUDENT") {
         window.location.replace(
           "http://127.0.0.1:5500/front-end/Student-Meetings.html"
@@ -74,7 +79,7 @@ async function SignIn() {
 }
 
 //get seemesters
-async function get_semesters() {
+function get_semesters() {
   var sel = document.getElementById("semesterSelector");
   xhr.open("GET", `http://localhost:80/Web Project/api/semester/semester.php`);
   xhr.send();
@@ -96,4 +101,4 @@ async function get_semesters() {
 }
 
 //generate meeting table for student
-async function get_students_meetings() {}
+function get_students_meetings() {}

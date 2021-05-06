@@ -47,12 +47,12 @@
           <div class="form-control w-75">
             <label for="meeting_id">Choose semester </label>
             <select id="semesterSelector">
-              <!-- <option value="null">--Select semester--</option>
-               <option> 1st semester(2019/2010) </option>
-               <option> 2nd semester(2019/2010) </option> -->
-              <script>
+              <option value="null">--Select semester--</option>
+              <option value="1">1st semester(2019/2020)</option>
+              <option value="2">2nd semester(2019/2020)</option>
+              <!-- <script>
                 get_semesters();
-              </script>
+              </script> -->
             </select>
           </div>
 
@@ -63,7 +63,12 @@
 
           <div class="form-control">
             <label for="num_of_students">Number of Students</label>
-            <input id="num_of_students" type="number" name="student_no" />
+            <input
+              id="num_of_students"
+              type="number"
+              name="student_no"
+              min="1"
+            />
           </div>
 
           <div class="form-control-range w-75">
@@ -84,7 +89,12 @@
             </select>
           </div>
 
-          <button class="btn btn-red" type="button" name="button">
+          <button
+            class="btn btn-red"
+            type="button"
+            name="button"
+            onclick="create_schedule()"
+          >
             Schedule meeting
           </button>
         </section>
