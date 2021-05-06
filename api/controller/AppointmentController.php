@@ -29,6 +29,8 @@ class AppointmentController
     function createAppointment($appointment) {
         $this->appointment->userId = $appointment->userId;
         $this->appointment->scheduleId = $appointment->scheduleId;
+        $this->schedule->id = $appointment->scheduleId;
+        $sch = $this->schedule->getSchedule();
         $response = $this->appointment->addAppointment();
         if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
             $this->sendMessage($this->appointment->scheduleId, $this->appointment->userId);
@@ -37,8 +39,24 @@ class AppointmentController
         return error($response[RESPONSE_MESSAGE]);
     }
 
+    function getAppointmentByUser($userId) {
+        $this->appointment->userId = $userId;
+        return success('Appointments requested', $this->appointment->getAppointmentByUser());
+    }
+
+    function getAppointmentBySchedule($scheduleId) {
+        $this->appointment->scheduleId = $scheduleId;
+        return success('Appointments requested', $this->appointment->getAppointmentByUser());
+    }
+
     function cancelAppointment($appointment) {
         $this->appointment->id = $appointment->id;
+        $this->appointment->status = AppointmentStatus::cancelled;
+        $response = $this->appointment->updateAppointment();
+        if ($response[RESPONSE_STATUS] == DbResponse::STATUS_SUCCESS) {
+            $app = $this->appointment->getAppointmentById();
+            $this->sendCustomMessage($app[COL_SCHEDULE_ID], $app[COL_USER_ID], $appointment->message);
+        }
     }
 
     private function sendMessage($scheduleId, $userId) {
@@ -49,6 +67,16 @@ class AppointmentController
         $this->message->senderId = $schedule[COL_SUPERVISOR_ID];
         $this->message->receiverId = $userId;
         $this->message->content = $content;
+        $this->message->addMessage();
+    }
+
+    private function sendCustomMessage($scheduleId, $userId, $message) {
+        $this->schedule->id = $scheduleId;
+        $schedule = $this->schedule->getSchedule();
+        $this->message->scheduleId = $scheduleId;
+        $this->message->senderId = $schedule[COL_SUPERVISOR_ID];
+        $this->message->receiverId = $userId;
+        $this->message->content = $message;
         $this->message->addMessage();
     }
 
