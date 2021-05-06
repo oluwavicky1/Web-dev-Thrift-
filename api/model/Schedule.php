@@ -53,6 +53,13 @@ class Schedule
     function getSchedulesBySupervisorAndSemester() {
         return $this->transform($this->db->select(SCHEDULE_TABLE_NAME,
             array(COL_SUPERVISOR_ID => $this->supervisorId,
+                COL_SEMESTER_ID => $this->semesterId,
+                COL_STATUS => true))[RESPONSE_DATA]);
+    }
+
+    function getScheduleBySupervisorAndSemesterHistory() {
+        return $this->transform($this->db->select(SCHEDULE_TABLE_NAME,
+            array(COL_SUPERVISOR_ID => $this->supervisorId,
                 COL_SEMESTER_ID => $this->semesterId))[RESPONSE_DATA]);
     }
 
