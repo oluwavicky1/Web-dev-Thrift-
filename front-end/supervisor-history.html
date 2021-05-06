@@ -61,57 +61,29 @@
         <div class="col-6">
           <div class="FilterSemester">
             <label for="Filter">Filter semester</label>
-            <select id="semesterSelector">
+            <select id="semesterSelector" onchange="get_schedules(1)">
               <option value="null">--Select semester--</option>
-              <option>1st semester(2019/2010)</option>
-              <option>2nd semester(2019/2010)</option>
             </select>
           </div>
         </div>
       </div>
 
-      <table style="width: 100%">
+      <table style="width: 100%" id="supervisor_history">
         <tr>
-          <th>Meeting ID</th>
+          <th>Meeting Name</th>
           <th>Reg. Students</th>
           <th>Time span</th>
           <th>Day</th>
           <th>Status</th>
         </tr>
-
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>3</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td id="status-cancelled">Cancelled</td>
-          <td><a href="">Attendance</a></td>
-          <td><a href="">View messages</a></td>
-        </tr>
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>2</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td id="status-success">Success</td>
-          <td><a href="">Attendance</a></td>
-          <td><a href="">View messages</a></td>
-        </tr>
-        <tr>
-          <td>PROJECT TOPIC</td>
-          <td>1</td>
-          <td>12:00 pm - 3:00 pm</td>
-          <td>Mon</td>
-          <td id="status-success">Success</td>
-          <td><a href="">Attendance</a></td>
-          <td><a href="">View messages</a></td>
-        </tr>
       </table>
     </main>
     <script src="./script/script.js"></script>
+    <script src="./script/supervisor.js"></script>
     <script>
       auth();
       get_profile();
+      get_semesters();
     </script>
   </body>
 </html>
