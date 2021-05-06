@@ -28,7 +28,7 @@ function Register() {
     let resp = JSON.parse(xhr.response);
     if (xhr.status == 200) {
       alert(resp.message);
-      window.location.replace("http://127.0.0.1:5500/front-end/signin.html");
+      window.location.replace("http://localhost:80/Web Project/front-end/signin.html");
     } else {
       // handle error
       // get the response from xhr.response
@@ -62,11 +62,11 @@ function SignIn() {
 
       if (resp.data.type == "STUDENT") {
         window.location.replace(
-          "http://127.0.0.1:5500/front-end/Student-Meetings.html"
+          "http://localhost:80/Web Project/front-end/Student-Meetings.html"
         );
       } else {
         window.location.replace(
-          "http://127.0.0.1:5500/front-end/supervisor-Meetings.html"
+          "http://localhost:80/Web Project/front-end/supervisor-Meetings.html"
         );
       }
     } else {
@@ -82,7 +82,7 @@ function SignIn() {
 function auth() {
   console.log(sessionStorage.getItem("id"));
   if (!sessionStorage.getItem("id")) {
-    window.location.replace("http://127.0.0.1:5500/front-end/signin.html");
+    window.location.replace("http://localhost:80/Web Project/front-end/signin.html");
   }
 }
 
@@ -90,7 +90,7 @@ function auth() {
 function logout() {
   sessionStorage.clear();
   console.log(sessionStorage.getItem("type"));
-  window.location.replace("http://127.0.0.1:5500/front-end/signin.html");
+  window.location.replace("http://localhost:80/Web Project/front-end/signin.html");
 }
 
 //get seemesters

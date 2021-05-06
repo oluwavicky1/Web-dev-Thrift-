@@ -20,7 +20,7 @@ function create_schedule() {
     if (xhr.status == 200) {
       alert(resp.message);
       window.location.replace(
-        "http://127.0.0.1:5500/front-end/supervisor-meetings.html"
+        "http://localhost:80/Web Project/front-end/supervisor-meetings.html"
       );
     } else {
       // handle error
